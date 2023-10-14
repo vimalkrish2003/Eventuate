@@ -1,0 +1,319 @@
+@import url("https://fonts.googleapis.com/css2?family=Sriracha&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: verdana;
+}
+
+body {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.css-container {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 10)),
+                      url(ev.jpg);
+    background-position: center;
+    background-size: contain;
+    position: relative;
+}
+
+.css-container .css-logo {
+    font-size: 8vw;
+    color: white;
+    filter: brightness(500%);
+    position: absolute;
+    top: 25%;
+    left:5.6%;
+    font-stretch: expanded;
+    font-family:verdana;
+    transition: transfrom 0.5s;
+
+
+
+}
+
+.css-logo:hover{
+
+    transform: translate(0px,-1vw);
+
+
+}
+
+.css-tagline{
+     
+    margin: 0.3vw;
+    font-size: 1.6vw;;  
+    color: white;
+    font-style: italic;
+    font-stretch: expanded;
+    font-family:verdana;
+    transition: transfrom 0.5s;
+    position: absolute;
+    top:41%;
+    left:34%;
+
+}
+
+
+
+
+.css-login {
+
+    background-color:black;
+    color: white;
+    font-size: 1.7vw;
+    height: 50px;
+    width: 150px ;
+    border-radius: 100px;
+    font-weight: bold;
+    border: solid;
+    border-color: white;
+    transition: transfrom 0.1s;
+    position: absolute;
+    top: 61.1%;
+    left: 23%;
+}
+
+.css-login a , a:visited{
+
+  color: white;
+  text-decoration: none;
+  
+
+}
+
+.css-login:hover{
+
+    transform: translate(0px,-.5vw);
+
+
+}
+
+
+.css-welcometag{
+    
+    color: white;
+    max-width: 830px;
+    text-align:justify;
+    font-size: 1.2vw;
+    position: absolute;
+    top: 47.7%;
+    left:6%;
+    
+}
+
+.css-whyus{
+    text-decoration: none;
+    position: absolute;
+    top: 36vw;
+    left:22.3vw;
+
+
+
+}
+
+.css-whyus a{
+
+    font-size: 1.5vw;
+    font-weight: bold;
+    color: white;
+    font-family: verdana;
+    text-decoration: none;
+
+
+}
+
+
+
+.css-home{
+
+    color: white;
+    background-color: black;
+    height: 50px;
+    width: 170px;
+    font-size: 1.2vw;
+    font-weight: bold;
+    margin-right: 2vw;;
+    border: solid;
+    border-color: white;
+    border-radius: 100px;
+    font-family: Verdana;
+    position: fixed;
+    top:1.6vw;
+    right:28vw;;
+    z-index: 1;
+
+    
+
+}
+
+.css-about{
+
+    color: white;
+    background-color: black;
+    height: 50px;
+    width: 170px;
+    font-size: 1.2vw;
+    font-weight: bold;
+    margin-right: 2vw;
+    border: solid;
+    border-color: white;
+    border-radius: 100px;
+    font-family: Verdana;
+    position: fixed;
+    top:1.6vw;
+    right:17vw;
+    z-index: 1;
+    
+
+}
+
+.css-contact{
+
+    color: white;
+    background-color: black;
+    height: 50px;
+    width: 230px;
+    font-size: 1.2vw;
+    font-weight: bold;
+    margin-right: 2vw;
+    border: solid;
+    border-color: white;
+    border-radius: 100px;
+    font-family: Verdana;
+    position: fixed;
+    top:1.6vw;
+    right:2.6vw;
+    z-index: 1;
+    
+
+}
+
+.arrow{
+
+    font-size: 4vw;
+    color: white;
+    height: 50vh;
+    position:absolute;
+    top:37vw;
+    left:25vw;
+}
+
+.about{
+    background-color:linear-gradient(rgb(1,1,1,10),rgb(0,0,0,1));
+    font-size: 50px;
+    
+}
+
+.about{
+
+    background-color: #302f49;
+    height: 600px;
+    border-top: solid;
+    border-top-color: white;
+    border-width: 2px;
+    color: white;
+    text-align: center;
+    padding-top: 50px;
+    
+    
+}
+
+
+.detail{
+
+    color: white;
+    font-size: 30px;
+    padding: 100px;
+    padding-left: 150px;
+    text-align: justify;
+    max-width: 1500px;
+    line-height: 50px;
+}
+
+
+.showmore {
+
+    font-size:4vw ;
+    color: white;
+    position: absolute;
+    top:75vw;
+    left: 50vw;;
+}
+
+.about1{
+
+    height: 750px;
+}
+
+.showmore1{
+
+    position: absolute;
+    top: 119vw;
+}
+
+.about2{
+
+    height: 470px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #302f49;
+    padding: 40px 80px;
+  }
+  
+  .footer .copy {
+    color: #fff;
+  }
+  
+  .bottom-links {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 40px 0;
+  }
+  
+  .bottom-links .links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+  }
+  
+  .bottom-links .links span {
+    font-size: 30px;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 10px 0;
+  }
+  
+  .bottom-links .links a {
+    text-decoration: none;
+    color: #a1a1a1;
+    padding: 10px 20px;
+    font-size: 25px;
+  }
+  
+  .column1 {
+    float: left;
+    width: 50%;
+  }
+  
+  .column2{
+    float: left;
+    width: 50%;
+  }
+  
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }

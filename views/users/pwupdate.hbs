@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="login/pwupdatestyle.css">
+  <script src="https://kit.fontawesome.com/970c139854.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <div class="container">
+
+    
+    <div class="form-box">
+      <h1 id="title">Reset Password</h1>
+      <form action="/pwupdate" method="post">
+        <div class="input-group">
+
+      
+          <div class="input-field">
+            <i class="fa-solid fa-envelope"></i>
+            <input name="Email" type="email" placeholder="Email">
+          </div>
+          {{#if success}}
+    <p class="success-message" >{{success}}</p>
+    {{/if}}
+    {{#if errorMessage}}
+            <p class="error-message">{{errorMessage}}</p>
+          {{/if}}
+
+      <!--    <div class="input-field">
+            <i class="fa fa-key" aria-hidden="true"></i>
+            <input type="number" placeholder="OTP">
+          </div>
+
+          <div class="input-field">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" placeholder="New Password">
+          </div>
+
+      -->
+          
+        </div>
+
+        <div class="btn-field">
+
+          <div class="submit-field">
+            
+            <button type="submit" id="submitBtn">Submit</button>
+          </div>
+          
+        </div>
+        
+        
+      </form>
+    </div>
+  </div>
+
+<style>
+        .success-message {
+            font-weight: bold; 
+            font-size: medium;
+        }
+        .error-message {
+            font-weight: bold; 
+            font-size: medium;
+        }
+    </style>
+
+
+    <script>
+        // Add JavaScript code to hide the error message after a specified time
+        document.addEventListener('DOMContentLoaded', function() {
+            const successMessageElement = document.querySelector('.success-message');
+            if (successMessageElement) {
+                setTimeout(function() {
+                    successMessageElement.style.display = 'none';
+                }, 6000); // 5000 milliseconds (5 seconds) - you can adjust this time as needed
+            }
+             const errorMessageElement = document.querySelector('.error-message');
+            if (errorMessageElement) {
+                setTimeout(function() {
+                    errorMessageElement.style.display = 'none';
+                }, 6000); // 5000 milliseconds (5 seconds) - you can adjust this time as needed
+            }
+        });
+    </script>
+
+  
+  
+</body>
+</html>

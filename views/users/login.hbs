@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/login/style.css">
+  <script src="https://kit.fontawesome.com/970c139854.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="form-box">
+      <h1 id="title">Sign Up</h1>
+      <form method="post" action="/signup" id="authForm">
+        <div class="input-group">
+
+          <div class="input-field" id="nameField">
+            <i class="fa-solid fa-user"></i>
+            <input name="Name" type="text" placeholder="Name">
+          </div>
+
+          <div class="input-field" id="phoneField">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+            <input name="Phone" type="number" placeholder="Phone">
+          </div>
+
+          <div class="input-field" id="addressField">
+            <i class="fa fa-address-book" aria-hidden="true"></i>
+            <input name="Address" type="text" placeholder="Address">
+          </div>
+
+          <div class="input-field">
+            <i class="fa-solid fa-envelope"></i>
+            <input name="Email" type="email" placeholder="Email">
+          </div>
+
+          <div class="input-field">
+            <i class="fa-solid fa-lock"></i>
+            <input name="Password" type="password" placeholder="Password">
+          </div>
+
+           {{#if errorMessage}}
+            <p class="error-message">{{errorMessage}}</p>
+          {{/if}}
+          {{#if success}}
+            <p class="success-message">{{success}}</p>
+          {{/if}}
+
+
+          <div class="forgot-field">
+            <p id="forgot-pass">Forgot Password </p>
+            <a id="click-here" class="click-here" href="/pwupdate">Click Here</a>
+          </div>
+
+        </div>
+        <div class="btn-field">
+  <button type="button" id="signupBtn" {{#if isSignUp}}class="error-button"{{/if}}>Sign up</button>
+  <button type="button" id="signinBtn" class="disable">Sign in</button>
+</div>
+
+        <div class="submit-field">
+          <button type="submit" id="submitBtn">Submit</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+   <style>
+        .error-message {
+            font-weight: bold; 
+            font-size: medium;
+        }
+        .success-message {
+            font-weight: bold; 
+            font-size: medium;
+        }
+    </style>
+
+
+<script>
+  let signupBtn = document.getElementById("signupBtn");
+  let signinBtn = document.getElementById("signinBtn");
+  let nameField = document.getElementById("nameField");
+  let phoneField = document.getElementById("phoneField");
+  let addressField = document.getElementById("addressField");
+  let title = document.getElementById("title");
+  let forgotField = document.querySelector('.forgot-field');
+  let submitBtn = document.getElementById("submitBtn");
+  let authForm = document.getElementById("authForm");
+
+  signinBtn.onclick = function() {
+    nameField.style.maxHeight = "0";
+    phoneField.style.maxHeight = "0";
+    addressField.style.maxHeight = "0";
+    forgotField.classList.add("forgot-field-next");
+    title.innerHTML = "Sign In";
+    signupBtn.classList.add("disable");
+    signinBtn.classList.remove("disable");
+    authForm.action = '/signin'; // Change the action to sign in
+  }
+
+  signupBtn.onclick = function() {
+    nameField.style.maxHeight = "60px";
+    phoneField.style.maxHeight = "60px";
+    addressField.style.maxHeight = "60px";
+    title.innerHTML = "Sign Up";
+    forgotField.classList.remove("forgot-field-next");
+    signinBtn.classList.add("disable");
+    signupBtn.classList.remove("disable");
+    authForm.action = '/signup'; // Change the action to sign up
+  }
+</script>
+
+    <script>
+        // Add JavaScript code to hide the error message after a specified time
+        document.addEventListener('DOMContentLoaded', function() {
+            const errorMessageElement = document.querySelector('.error-message');
+            const successMessageElement=document.querySelector('.success-message');
+            if (errorMessageElement) {
+                setTimeout(function() {
+                    errorMessageElement.style.display = 'none';
+                }, 6000); // 6000 milliseconds (5 seconds) - you can adjust this time as needed
+            }
+            if (successMessageElement) {
+                setTimeout(function() {
+                    successMessageElement.style.display = 'none';
+                }, 6000); // 6000 milliseconds (5 seconds) - you can adjust this time as needed
+            }
+        });
+    </script>
+
+</body>
+</html>
