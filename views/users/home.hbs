@@ -113,6 +113,26 @@
 
   </div>
 
+<script>
+  // Simulated data (you would replace this with your actual data)
+  const teamData = {
+    "teamC": { rating: 5},
+    "teamD": { rating: 5},
+    "teamB": { rating: 5},
+  };
+
+  // Function to update the ratings
+  function updateRatings() {
+    for (const teamId in teamData) {
+      const ratingElement = document.getElementById(`rating${teamId}`);
+      ratingElement.textContent = teamData[teamId].rating + '⭐';
+    }
+  }
+
+  // Periodically update the ratings (e.g., every 30 seconds)
+  setInterval(updateRatings, 30000); // Update every 30 seconds
+  updateRatings(); // Initial update
+ </script>
 
   <!--Main Card Grid-->
   <div class="main-card-grid">
