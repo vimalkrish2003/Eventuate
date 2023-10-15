@@ -373,6 +373,9 @@ async function sendPasswordResetEmail(email, token) {
       console.log('Password reset email sent:', info.response);
     }
   });
-}
+};
+
+//routes code after reaching the home page
+
 
 module.exports = router;
