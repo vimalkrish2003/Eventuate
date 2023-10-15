@@ -144,6 +144,7 @@ nav {
   flex-direction: column;
   align-items: center;
   font-family: 'Times New Roman', Times, serif;
+  justify-content: space-between;
 
 
 }
@@ -175,6 +176,30 @@ nav {
   color: rgba(255, 255, 255, 0.551);
 
 
+}
+
+.logout-button {
+  display: flex;
+  width: 190px;
+  height: 50px;
+  background-color: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.822);
+  font-size: 25px;
+  font-family: 'Times New Roman', Times, serif;
+  
+  
+}
+
+.logout-button:hover {
+  opacity: 0.8;
+}
+
+.logout-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  padding-left: 20px;
 }
 
 .rating-button,.price-button {

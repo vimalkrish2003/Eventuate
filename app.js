@@ -3,7 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var bodyParser=require('body-parser')
+var bodyParser=require('body-parser');
+var session=require('express-session');
 
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
@@ -22,6 +23,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
+//session configuration
+
+app.use(session({
+  secret: 'vimal_punda',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge:2628002880},
+}));
 
 app.use('/admin', adminRouter);
 app.use('/', usersRouter);
