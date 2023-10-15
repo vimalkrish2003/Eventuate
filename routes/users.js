@@ -4,6 +4,7 @@ const db = require('../database/connection');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
+const noCache = require('nocache');
 const secretKey = 'key-key';
 const tokengenerator = require('token-generator')({
   salt: 'secret-key',
@@ -21,17 +22,33 @@ router.get('/', function (req, res) {
   }
 })
 
-// Routing to home page
-router.get('/home', async function (req, res) {
-  const user = await req.session.user;
-  if (!user) {
-    return res.redirect('/login'); // Redirect to login if the user is not logged in
-  }
-  console.log(req.session.id)
-  console.log(user);
-  res.render('users/home', { user }); // Pass user data to the template
-});
+const noCacheMiddleware = noCache();
 
+// Routing to home page
+router.get('/home', noCacheMiddleware, async function (req, res) {
+  const user = req.session.user;
+
+  if (!user) {
+    // If the user is not logged in, redirect to the login page
+    return res.redirect('/login');
+  }
+
+  // Check if the user exists in the USERDETAILS table
+  try {
+    const [userData] = await db.execute('SELECT email FROM USERDETAILS WHERE email = ?', [user.email]);
+
+    if (userData.length === 0) {
+      // User doesn't exist in the database, redirect to login
+      return res.redirect('/login');
+    }
+
+    console.log(user);
+    res.render('users/home', { user }); // Pass user data to the template
+  } catch (error) {
+    console.error('Error checking user existence:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
 // Routing to login page
 router.get('/login', function (req, res) {
   if (req.session.user) {
@@ -72,56 +89,60 @@ router.get('/confirmpwupdate/:token', async function (req, res) {
 
 // Adding user details to the database
 router.get('/signupsuccess/:token', async function (req, res) {
-  const token = req.params.token;
+  if (req.session.user) {
+    console.log('hey')
+    res.redirect('/home');
+  } else {
+    const token = req.params.token;
 
-  try {
-    // Find the email associated with the token
-    const [tokenData] = await db.execute('SELECT email FROM TOKENS WHERE token = ?', [token]);
+    try {
+      // Find the email associated with the token
+      const [tokenData] = await db.execute('SELECT email FROM TOKENS WHERE token = ?', [token]);
 
-    if (tokenData.length === 0) {
-      // Token not found
-      const errorMessage = 'Signup failed';
-      return res.render('users/login', { errorMessage });
-    }
-
-    const email = tokenData[0].email;
-
-    // Verify and decode the token using your secret key
-    jwt.verify(token, secretKey, async (err, decoded) => {
-      if (err) {
-        console.error('Token verification failed:', err);
-        return res.status(500).json({ error: 'Server error' });
+      if (tokenData.length === 0) {
+        // Token not found
+        return res.redirect('/login'); // Redirect to the login page
       }
 
-      // Now you can access user details from the decoded token
-      const userDetails = decoded;
+      const email = tokenData[0].email;
 
-      // Insert user details into the USERDETAILS table
-      const { name, phone, address, Password } = userDetails;
-      console.log(phone);
-      const hashedPassword = await bcrypt.hash(Password, 10);
+      // Verify and decode the token using your secret key
+      jwt.verify(token, secretKey, async (err, decoded) => {
+        if (err) {
+          console.error('Token verification failed:', err);
+          return res.status(500).json({ error: 'Server error' });
+        }
 
-      db.execute('INSERT INTO USERDETAILS (name, phone, address, email,password) VALUES (?, ?, ?, ?,?)',
-        [name, phone, address, email, hashedPassword])
-        .then(() => {
-          // Delete the used token from the database
-          return db.execute('DELETE FROM TOKENS WHERE token = ?', [token]);
-        })
-        .then(() => {
-          // Redirect to a success page or perform any other desired action
-          const success = 'Signup success';
-          res.render('users/login', { success });
-        })
-        .catch((error) => {
-          console.error('Error adding user details:', error);
-          res.status(500).json({ error: 'Server error' });
-        });
-    });
-  } catch (error) {
-    console.error('Error in signup success route:', error);
-    res.status(500).json({ error: 'Server error' });
+        // Now you can access user details from the decoded token
+        const userDetails = decoded;
+
+        // Insert user details into the USERDETAILS table
+        const { name, phone, address, Password } = userDetails;
+        const hashedPassword = await bcrypt.hash(Password, 10);
+
+        db.execute('INSERT INTO USERDETAILS (name, phone, address, email, password) VALUES (?, ?, ?, ?, ?)',
+          [name, phone, address, email, hashedPassword])
+          .then(() => {
+            // Delete the used token from the database
+            return db.execute('DELETE FROM TOKENS WHERE token = ?', [token]);
+          })
+          .then(() => {
+            // Redirect to a success page or perform any other desired action
+            const success = 'Signup success';
+            res.render('users/login', { success });
+          })
+          .catch((error) => {
+            console.error('Error adding user details:', error);
+            res.status(500).json({ error: 'Server error' });
+          });
+      });
+    } catch (error) {
+      console.error('Error in signup success route:', error);
+      res.status(500).json({ error: 'Server error' });
+    }
   }
 });
+
 
 /* Listed All the POST methods here */
 
@@ -289,9 +310,11 @@ router.get('/logout', function (req, res) {
   req.session.destroy(function(err) {
     if (err) {
       console.error('Error destroying session:', err);
-    }
+    }else{
     // Redirect the user to the login page or any other desired page after logout
+    console.log('session destroyed successfully')
     res.redirect('/login');
+    }
   });
 });
 
