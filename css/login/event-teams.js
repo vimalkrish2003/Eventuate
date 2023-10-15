@@ -3,97 +3,101 @@
 export const teams = [
   {
     id: 101,
-    img: "/login/team-images/team A.jpg",
-    name: "Team A",
+    img: "/login/team-images/teamA.jpg",
+    name: "Green Weddings",
     description: `Our event team specializes in orchestrating unforgettable moments for life's most cherished celebrations.
     We help in transforming a backyard into a fairytale wedding venue or curating a whimsical
     theme for a child's birthday party`,
     rating: 5,
-    price: 10000
+    location: "calicut",
+    category: "wedding"
 
   },
 
   {
     id: 102,
-    img: "/login/team-images/team B.jpg",
-    name: "Team B",
+    img: "/login/team-images/teamB.jpg",
+    name: "Tasty Foods",
     description: `Our event team specializes in orchestrating unforgettable moments for life's most cherished celebrations.
     We help in transforming a backyard into a fairytale wedding venue or curating a whimsical
     theme for a child's birthday party`,
     rating: 3,
-    price: 5000
+    location: "kollam",
+    category: "Food"
 
   },
 
   {
     id: 103,
-    img: "/login/team-images/team C.jpg",
-    name: "Team C",
+    img: "/login/team-images/teamB.jpg",
+    name: "Happy Wedding",
     description: `Our event team specializes in orchestrating unforgettable moments for life's most cherished celebrations.
     We help in transforming a backyard into a fairytale wedding venue or curating a whimsical
     theme for a child's birthday party`,
     rating: 4,
-    price: 8000
+    location: "kochi",
+    category: "wedding"
 
   },
 
   {
-    id: 103,
-    img: "/login/team-images/team D.jpg",
-    name: "Team D",
+    id: 104,
+    img: "/login/team-images/teamA.jpg",
+    name: "Paragon",
     description: `Our event team specializes in orchestrating unforgettable moments for life's most cherished celebrations.
     We help in transforming a backyard into a fairytale wedding venue or curating a whimsical
     theme for a child's birthday party`,
     rating: 5,
-    price: 9000
+    location: "kannur",
+    category: "Food"
 
   },
 
   {
-    id: 101,
-    img: "/login/team-images/team A.jpg",
+    id: 105,
+    img: "/login/team-images/teamA.jpg",
     name: "Team A",
     description: `Our event team specializes in orchestrating unforgettable moments for life's most cherished celebrations.
     We help in transforming a backyard into a fairytale wedding venue or curating a whimsical
     theme for a child's birthday party`,
     rating: 5,
-    price: 10000
+    category: "Food"
 
   },
 
   {
-    id: 102,
-    img: "/login/team-images/team B.jpg",
+    id: 106,
+    img: "/login/team-images/teamB.jpg",
     name: "Team B",
     description: `Our event team specializes in orchestrating unforgettable moments for life's most cherished celebrations.
     We help in transforming a backyard into a fairytale wedding venue or curating a whimsical
     theme for a child's birthday party`,
     rating: 3,
-    price: 5000
+    category: "Food"
 
   },
 
   {
-    id: 103,
-    img: "/login/team-images/team C.jpg",
+    id: 107,
+    img: "/login/team-images/teamB.jpg",
     name: "Team C",
     description: `Our event team specializes in orchestrating unforgettable moments for life's most cherished celebrations.
     We help in transforming a backyard into a fairytale wedding venue or curating a whimsical
     theme for a child's birthday party`,
     rating: 4,
-    price: 8000
+    category: "Food"
 
   },
 
   {
-    id: 103,
-    img: "/login/team-images/team D.jpg",
+    id: 108,
+    img: "/login/team-images/demo.avif",
     name: "Team D",
     description: `Our event team specializes in orchestrating unforgettable moments for life's most cherished celebrations.
     We help in transforming a backyard into a fairytale wedding venue or curating a whimsical
     theme for a child's birthday party`,
     rating: 5,
-    price: 9000
+    category: "Food"
 
   }
 

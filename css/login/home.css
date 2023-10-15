@@ -302,7 +302,7 @@ nav {
   opacity: 0.8;
 }
 
-.suggestion-card img {
+.suggestion-img  {
   height: 150px;
   width: 355px;
   object-fit: cover;
@@ -313,7 +313,7 @@ nav {
 }
 .suggestion-card  p {
   color: rgba(255, 255, 255, 0.584);
-  font-size: 30px;
+  font-size: 26px;
   margin: 8px;
 }
 
@@ -393,16 +393,17 @@ nav {
 .team-info p {
   margin: 0px;
   color: rgba(255, 255, 255, 0.729);
+  font-size: 18px;
 }
 
 .team-name {
   font-family: 'Times New Roman', Times, serif;
   text-align: center;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
   background-color: rgba(98, 54, 37, 0.544);
   padding: 10px;
-  width: 100px;
+  width: 200px;
   border-radius: 20px 20px / 60px 60px;
   
 

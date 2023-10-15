@@ -17,7 +17,10 @@ teams.forEach((team)=> {
      <p class="team-name">${team.name}</p>
      
 
-     <p>Rating ${team.rating}&#11088;</p>
+     <p>Rating: ${team.rating}&#11088;</p>
+
+     <p>Location: ${team.location}</p>
+     <p>Category: ${team.category}</p>
     </div>
 
   </div>
@@ -54,31 +57,3 @@ for (i = 0; i < dropdown2.length; i++) {
     }
   });
 }
-
-// Lazy load the images for stability
-
-document.addEventListener("DOMContentLoaded", function() {
-  var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
-
-  if ("IntersectionObserver" in window) {
-    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          let lazyImage = entry.target;
-          lazyImage.src = lazyImage.dataset.src;
-          lazyImage.srcset = lazyImage.dataset.srcset;
-          lazyImage.classList.remove("lazy");
-          lazyImageObserver.unobserve(lazyImage);
-        }
-      });
-    });
-
-    lazyImages.forEach(function(lazyImage) {
-      lazyImageObserver.observe(lazyImage);
-    });
-  } else {
-    // Possibly fall back to event handlers here
-  }
-});
-
-

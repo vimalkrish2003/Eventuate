@@ -31,10 +31,7 @@
 
     <div class="right-header">
 
-    <!--  <div>
-        <img class="event-cart" src="/login/event-cart.png" alt="">
-
-      </div> !-->>
+  
 
       <div class="account-info">
 
@@ -54,44 +51,18 @@
  
   <div class="left-bar">
 
-    <!--
-
-    <div class="filter-box">
-      <h1 class="filter-box-heading">FILTER</h1>
-      
-      
-
-      <button class="rating-button">Rating</button>
-      <div class="rating-filter">
-        <p>5&#11088;<input type="checkbox" name="Rating"></p>
-        <p>4&#11088;<input type="checkbox" name="Rating"></p>
-        <p>3&#11088;<input type="checkbox" name="Rating"></p>
-        <p>2&#11088;<input type="checkbox" name="Rating"></p>
-        <p>1&#11088;<input type="checkbox" name="Rating"></p>
-      </div>
-
-      
-
-      <button class="price-button">Price</button>
-      <div class="price-filter">
-        <p>50000.$<input type="checkbox" name="Rating"></p>
-        <p>25000.$<input type="checkbox" name="Rating"></p>
-        <p>10000.$<input type="checkbox" name="Rating"></p>
-        <p>5000.0$<input type="checkbox" name="Rating"></p>
-        <p>2000.0$<input type="checkbox" name="Rating"></p>
-      </div>
-
-    </div>
--->
-
     <div style="margin-bottom: 20px; display: flex; align-items: center;">
-  <button class="logout-button" onclick="logout()">Log Out<img class="logout-img" src="/login/power.png" alt=""></button>
+  <button class="logout-button" onclick="confirmlogout()">Log Out<img class="logout-img" src="/login/power.png" alt=""></button>
 </div>
 
 <script>
-  function logout() {
-    // Perform any necessary logout actions here
-    window.location.href = '/logout'; // Redirect to the logout route
+  function confirmlogout() {
+    const confirmation = window.confirm("Are you sure want to log out?");
+    if(confirmation){
+    window.location.href = '/logout'; 
+    }else{
+
+    }
   }
 </script>
 
@@ -106,24 +77,27 @@
 
     <div class="suggestion-card">
       
-      <img class="lazy" src="/login/team-images/Team C.jpg" alt="">
+      <img class="suggestion-img" src="/login/team-images/demo.avif" alt=""/>
 
-      <p> Rating 5&#11088; </p>
+      <p>Salkara Catering</p>
+      
+      
+    </div>
+
+    <div class="suggestion-card">
+     
+
+      <img class="suggestion-img" src="/login/team-images/teamA.jpg" alt="">
+
+      <p>Shadi Mubarak</p>
       
     </div>
 
     <div class="suggestion-card">
 
-      <img class="lazy" src="/login/team-images/Team D.jpg" alt="">
-
-      <p> Rating 5&#11088; </p>
-    </div>
-
-    <div class="suggestion-card">
-
-      <img class="lazy" src="/login/team-images/Team B.jpg" alt="">
-
-      <p> Rating 5&#11088; </p>
+      <img class="suggestion-img" src="/login/team-images/teamB.jpg" alt="">
+      <p>Happy Wedding</p>
+      
     </div>
 
   </div>
