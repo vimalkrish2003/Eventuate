@@ -301,15 +301,8 @@ router.post('/confirmpwupdate/:token', async (req, res) => {
     // Delete the used token from the database
     await db.execute('DELETE FROM TOKENS WHERE token = ?', [token]);
 
-    // Fetch the user's name from the database
-    const [userData] = await db.execute('SELECT name FROM USERDETAILS WHERE email = ?', [tokenData[0].email]);
-    const userName = userData[0].name;
-
-    // Create a session for the user
-    req.session.user = {
-      email: tokenData[0].email,
-      name: userName,
-    };
+ 
+    
   
     // Render a success message or redirect to a login page
     const success = 'Password reset successfully';
