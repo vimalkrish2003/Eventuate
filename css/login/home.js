@@ -14,10 +14,9 @@ teams.forEach((team)=> {
    </div>
 
    <div class="team-info">
-     <p class="team-name">${team.name}</p>
+     <div class="team-name">${team.name}</div>
      
 
-     <p>Rating: ${team.rating}&#11088;</p>
 
      <p>Location: ${team.location}</p>
      <p>Category: ${team.category}</p>
