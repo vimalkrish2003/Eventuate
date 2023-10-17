@@ -70,7 +70,11 @@ router.get('/pwupdate', function (req, res) {
 router.get('/confirmpwupdate/:token', async function (req, res) {
   const token = req.params.token;
   const currentTime = Date.now();
-
+  
+if(req.session.user){
+  res.redirect('/home')
+}else{
+  
   try {
     // Check if the token exists and is still valid (e.g., within a certain time limit)
     const [tokenData] = await db.execute('SELECT * FROM TOKENS WHERE token = ? AND timestamp >= ?', [token, currentTime - 3600000]);
@@ -84,7 +88,7 @@ router.get('/confirmpwupdate/:token', async function (req, res) {
   } catch (error) {
     console.error('Error redirecting to set a new password', error);
     res.status(500).json({ error: 'Server error' });
-  }
+  }}
 });
 
 // Adding user details to the database
@@ -255,7 +259,7 @@ router.post('/pwupdate', async function (req, res) {
     const token = tokengenerator.generate();
     
     // Store the token in the database along with the user's email and a timestamp
-    await db.execute('INSERT INTO TOKENS(email, token, timestamp) VALUES (?, ?, ?)', [email, token, Date.now]);
+    await db.execute('INSERT INTO TOKENS(email, token, timestamp) VALUES (?, ?, ?)', [email, token, Date.now()]);
     
     // Send an email to the user with a link to reset the password
     sendPasswordResetEmail(email, token);
@@ -275,6 +279,7 @@ router.post('/confirmpwupdate/:token', async (req, res) => {
   const token = req.params.token;
   const Password = req.body.Password;
 
+ 
   try {
     if (!Password) {
       const errorMessage = 'Password should not be null';
@@ -295,9 +300,22 @@ router.post('/confirmpwupdate/:token', async (req, res) => {
     await db.execute('UPDATE USERDETAILS SET password = ? WHERE email = ?', [hashedPassword, tokenData[0].email]);
     // Delete the used token from the database
     await db.execute('DELETE FROM TOKENS WHERE token = ?', [token]);
+
+    // Fetch the user's name from the database
+    const [userData] = await db.execute('SELECT name FROM USERDETAILS WHERE email = ?', [tokenData[0].email]);
+    const userName = userData[0].name;
+
+    // Create a session for the user
+    req.session.user = {
+      email: tokenData[0].email,
+      name: userName,
+    };
+  
     // Render a success message or redirect to a login page
     const success = 'Password reset successfully';
-    res.render('users/login', { success });
+   
+    res.render('users/login', {success});
+    
 
   } catch (error) {
     console.error('Error resetting password:', error);
