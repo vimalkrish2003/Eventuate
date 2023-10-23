@@ -42,8 +42,12 @@ router.get('/home', noCacheMiddleware, async function (req, res) {
       return res.redirect('/login');
     }
 
+      // Fetch data from the COMPANY table
+      const [companyData] = await db.execute('SELECT * FROM COMPANY');
+
     console.log(user);
-    res.render('users/home', { user }); // Pass user data to the template
+
+    res.render('users/home', { user, company: companyData[0]||{}}); // Pass user data to the template
   } catch (error) {
     console.error('Error checking user existence:', error);
     res.status(500).json({ error: 'Server error' });
@@ -94,7 +98,6 @@ if(req.session.user){
 // Adding user details to the database
 router.get('/signupsuccess/:token', async function (req, res) {
   if (req.session.user) {
-    console.log('hey')
     res.redirect('/home');
   } else {
     const token = req.params.token;
