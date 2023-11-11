@@ -11,159 +11,92 @@
   <!-- Navigation Bar-->
   <nav>
     <div class="left-header">
-
       <div>
-       <a><img class="logo" src="/login/eventuate-logo.png" alt=""></a> 
+        <a><img class="logo" src="/login/eventuate-logo.png" alt=""></a> 
       </div>
-
     </div>
 
     <div class="middle-header">
-
       <div>
         <input class="search-bar" type="text" placeholder="events">
       </div>
       <div style="margin-left: -13px;">
         <img class="search-icon" src="/login/search-icon.png" alt="">
       </div>
-
     </div>
 
     <div class="right-header">
-
-  
-
       <div class="account-info">
-
         <p class="account-name">{{user.name}}</p>
-
       </div>
-
       <div>
         <img class="account-img" src="/login/account.png" alt="">
       </div>
-
     </div>
-
   </nav>
 
-  <!--Left Bar-->
- 
+  <!-- Left Bar -->
   <div class="left-bar">
-
     <div style="margin-bottom: 20px; display: flex; align-items: center;">
-  <button class="logout-button" onclick="confirmlogout()">Log Out<img class="logout-img" src="/login/power.png" alt=""></button>
+      <button class="logout-button" onclick="confirmlogout()">Log Out<img class="logout-img" src="/login/power.png" alt=""></button>
+    </div>
+    <script>
+      function confirmlogout() {
+        const confirmation = window.confirm("Are you sure want to log out?");
+        if (confirmation) {
+          window.location.href = '/logout';
+        } else {
+          // Do nothing or handle cancellation
+        }
+      }
+    </script>
+  </div>
+
+  <!-- Suggestions -->
+  <div class="suggestions">
+    <div class="top-suggestion-plate">
+      <p>Top Suggestions</p>
+    </div>
+
+<div class="suggestion-card">
+  <img class="suggestion-img" src="/login/team-images/teamA.jpg" alt="" />
+  <div class="suggestion-card-info">
+    <p style="text-align: center; margin-right: 30px;">{{company.[0].compname}}</p>
+    <div class="mini-info-box">
+      <p class="mini-info">{{company.[0].complocation}}</p>
+      <p class="mini-info">{{company.[0].compcategory}}</p>
+    </div>
+  </div>
 </div>
 
-<script>
-  function confirmlogout() {
-    const confirmation = window.confirm("Are you sure want to log out?");
-    if(confirmation){
-    window.location.href = '/logout'; 
-    }else{
+<div class="suggestion-card">
+  <img class="suggestion-img" src="/login/team-images/teamA.jpg" alt="" />
+  <div class="suggestion-card-info">
+    <p style="text-align: center; margin-right: 30px;">{{company.[1].compname}}</p>
+    <div class="mini-info-box">
+      <p class="mini-info">{{company.[1].complocation}}</p>
+      <p class="mini-info">{{company.[1].compcategory}}</p>
+    </div>
+  </div>
+</div>
 
-    }
-  }
-</script>
+<div class="suggestion-card">
+  <img class="suggestion-img" src="/login/team-images/teamA.jpg" alt="" />
+  <div class="suggestion-card-info">
+    <p style="text-align: center; margin-right: 30px;">{{company.[2].compname}}</p>
+    <div class="mini-info-box">
+      <p class="mini-info">{{company.[2].complocation}}</p>
+      <p class="mini-info">{{company.[2].compcategory}}</p>
+    </div>
+  </div>
+</div>
 
-
-    
-
+   
   </div>
 
-  <!--Suggestion Box-->
-
-  <div class="suggestions">
-
-
-    <div class="top-suggestion-plate">
-
-      <p>Top Suggestions</p>
-
-    </div>
-
-    <div class="suggestion-card">
-      
-      <img class="suggestion-img" src="/login/team-images/demo.avif" alt=""/>
-
-     <div class="suggestion-card-info">
-        <p>Shadi Mubarak</p>
-
-        <div style="display: flex;justify-content: space-between">
-          <p class="mini-info">Calicut</p>
-          <p class="mini-info">Food</p>
-        </div>
-      </div>
-
-     
-
-      
-      
-    </div>
-
-    <div class="suggestion-card">
-     
-
-      <img class="suggestion-img" src="{{company.compimage}}" alt="">
-
-      <div class="suggestion-card-info">
-        <p>Shadi Mubarak</p>
-
-        <div style="display: flex;justify-content: space-between">
-          <p class="mini-info">Kochi</p>
-          <p class="mini-info">Wedding</p>
-        </div>
-      </div>
-      
-    </div>
-
-    <div class="suggestion-card">
-
-      <img class="suggestion-img" src="/login/team-images/teamB.jpg" alt="">
-      
-      <div class="suggestion-card-info">
-        <p>Shadi Mubarak</p>
-
-        <div style="display: flex;justify-content: space-between">
-          <p class="mini-info">Trivandrum</p>
-          <p class="mini-info">Funeral</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-<script>
-  // Simulated data (you would replace this with your actual data)
-  const teamData = {
-    "teamC": { rating: 5},
-    "teamD": { rating: 5},
-    "teamB": { rating: 5},
-  };
-
-  // Function to update the ratings
-  function updateRatings() {
-    for (const teamId in teamData) {
-      const ratingElement = document.getElementById(`rating${teamId}`);
-      ratingElement.textContent = teamData[teamId].rating + '⭐';
-    }
-  }
-
-  // Periodically update the ratings (e.g., every 30 seconds)
-  setInterval(updateRatings, 30000); // Update every 30 seconds
-  updateRatings(); // Initial update
- </script>
-
-  <!--Main Card Grid-->
-  <div class="main-card-grid">
-
-  </div>
-
-
-    
-
+  <!-- Main Card Grid -->
+  <div class="main-card-grid"></div>
 
   <script type="module" src="/login/home.js"></script>
-  
 </body>
 </html>

@@ -1,5 +1,4 @@
 
-
 export const teams = [
   {
     id: 101,
@@ -102,5 +101,3 @@ export const teams = [
   }
 
 ];
-
-
