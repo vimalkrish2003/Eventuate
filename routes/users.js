@@ -45,7 +45,7 @@ router.get('/home', noCacheMiddleware, async function (req, res) {
       // Fetch data from the COMPANY table
       const [companyData] = await db.execute('SELECT * FROM COMPANY');
 
-      console.log('Company Data:', companyData);
+     
 
     res.render('users/home', { user, company: companyData });
 
