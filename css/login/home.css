@@ -370,10 +370,22 @@ nav {
   margin: 3px;
 }
 
+.mini-info-box 
+{
+ display: flex;
+ flex-direction: row;
+ column-gap: 40px
+}
+
 .mini-info {
-  display: inline;
+  
+  display: inline-block;
   color: rgba(255, 255, 255, 0.267);
   font-size: 20px;
+  width: 90px;
+ 
+  
+  
   }
 
 .main-card-grid {

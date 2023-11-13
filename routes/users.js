@@ -45,9 +45,10 @@ router.get('/home', noCacheMiddleware, async function (req, res) {
       // Fetch data from the COMPANY table
       const [companyData] = await db.execute('SELECT * FROM COMPANY');
 
-    console.log(user);
+     
 
-    res.render('users/home', { user, company: companyData[0]||{}}); // Pass user data to the template
+    res.render('users/home', { user, company: companyData });
+
   } catch (error) {
     console.error('Error checking user existence:', error);
     res.status(500).json({ error: 'Server error' });
