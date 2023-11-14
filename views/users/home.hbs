@@ -58,46 +58,58 @@
       <p>Top Suggestions</p>
     </div>
 
-<div class="suggestion-card">
-  <img class="suggestion-img" src="/login/team-images/teamA.jpg" alt="" />
-  <div class="suggestion-card-info">
-    <p style="text-align: center; margin-right: 30px;">{{company.[0].compname}}</p>
-    <div class="mini-info-box">
-      <p class="mini-info">{{company.[0].complocation}}</p>
-      <p class="mini-info">{{company.[0].compcategory}}</p>
+    <div class="suggestion-card">
+      <img class="suggestion-img" src="/login/team-images/teamA.jpg" alt="" />
+      <div class="suggestion-card-info">
+        <p style="text-align: center; margin-right: 30px;">{{company.[0].compname}}</p>
+        <div class="mini-info-box">
+          <p class="mini-info">{{company.[0].complocation}}</p>
+          <p class="mini-info">{{company.[0].compcategory}}</p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<div class="suggestion-card">
-  <img class="suggestion-img" src="/login/team-images/teamA.jpg" alt="" />
-  <div class="suggestion-card-info">
-    <p style="text-align: center; margin-right: 30px;">{{company.[1].compname}}</p>
-    <div class="mini-info-box">
-      <p class="mini-info">{{company.[1].complocation}}</p>
-      <p class="mini-info">{{company.[1].compcategory}}</p>
+    <div class="suggestion-card">
+      <img class="suggestion-img" src="/login/team-images/teamA.jpg" alt="" />
+      <div class="suggestion-card-info">
+        <p style="text-align: center; margin-right: 30px;">{{company.[1].compname}}</p>
+        <div class="mini-info-box">
+          <p class="mini-info">{{company.[1].complocation}}</p>
+          <p class="mini-info">{{company.[1].compcategory}}</p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<div class="suggestion-card">
-  <img class="suggestion-img" src="/login/team-images/teamA.jpg" alt="" />
-  <div class="suggestion-card-info">
-    <p style="text-align: center; margin-right: 30px;">{{company.[2].compname}}</p>
-    <div class="mini-info-box">
-      <p class="mini-info">{{company.[2].complocation}}</p>
-      <p class="mini-info">{{company.[2].compcategory}}</p>
+    <div class="suggestion-card">
+      <img class="suggestion-img" src="/login/team-images/teamA.jpg" alt="" />
+      <div class="suggestion-card-info">
+        <p style="text-align: center; margin-right: 30px;">{{company.[2].compname}}</p>
+        <div class="mini-info-box">
+          <p class="mini-info">{{company.[2].complocation}}</p>
+          <p class="mini-info">{{company.[2].compcategory}}</p>
+        </div>
+      </div>
     </div>
+
   </div>
-</div>
 
 
-   
-  </div>
 
   <!-- Main Card Grid -->
-  <div class="main-card-grid"></div>
+<div class="main-card-grid">
+  {{#each company}}
+  <div class="main-card">
+          <div>
+            <img class="main-card-img" src="login/team-images/teamA.jpg" alt="">
+          </div>
+          <div class="team-info">
+            <div class="team-name">{{compname}}</div>
+            <p>Location:{{complocation}}</p>
+            <p>Category:{{compcategory}}</p>
+          </div>
+        </div>
+        {{/each}}
+</div>
 
-  <script type="module" src="home.js"></script>
 </body>
 </html>

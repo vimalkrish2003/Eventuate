@@ -5,11 +5,21 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const Handlebars = require('handlebars');
+
+Handlebars.registerHelper('json', function (context) {
+  return JSON.stringify(context);
+});
+
+
+
+const app = express();
+
 
 const adminRouter = require('./routes/admin');
 const usersRouter = require('./routes/users');
 
-const app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
