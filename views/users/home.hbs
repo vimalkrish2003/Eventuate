@@ -96,38 +96,20 @@
 
 
   <!-- Main Card Grid -->
-<div class="main-card-grid"></div>
-
-<script>
-   console.log('Script is running!');
-  // Assuming company is an array of objects
- const companies = {{json company}};
-
-  console.log('Companies:', companies);
-
- 
-  // Function to render cards in the main grid
-  function renderCards(companies) {
-    let cardHTML = '';
-
-    companies.forEach((team) => {
-      cardHTML += `
-        <div class="main-card">
+<div class="main-card-grid">
+  {{#each company}}
+  <div class="main-card">
           <div>
-            <img class="main-card-img" src="${team.img}" alt="">
+            <img class="main-card-img" src="login/team-images/teamA.jpg" alt="">
           </div>
           <div class="team-info">
-            <div class="team-name">${team.compname}</div>
-            <p>Location: ${team.complocation}</p>
-            <p>Category: ${team.compcategory}</p>
+            <div class="team-name">{{compname}}</div>
+            <p>Location:{{complocation}}</p>
+            <p>Category:{{compcategory}}</p>
           </div>
         </div>
-      `;
-    });
+        {{/each}}
+</div>
 
-    document.querySelector('.main-card-grid').innerHTML = cardHTML;
-  }
-  renderCards(companies);
-</script>
 </body>
 </html>
