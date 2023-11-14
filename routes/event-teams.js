@@ -17,7 +17,7 @@ async function fetchCompanyData() {
 
     // Generate 'teams' array dynamically based on the database results
     const teams = companyData.map((item) => ({
-      img: item.compimage,
+     // img: item.compimage,
       name: item.compname,
       location: item.complocation,
       category: item.compcategory,
