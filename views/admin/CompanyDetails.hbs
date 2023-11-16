@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<head>
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compnay Details</title>
+
+    <link rel="stylesheet" href="../../css/admin/css/CompanyDetails.css">
+    <script src="https://kit.fontawesome.com/970c139854.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+  <form>
+  <div class="split left">
+    <div class="centered1">
+
+      <div>
+        <form class="menubar">
+          <nav>
+
+             <button type="button" class="logout"><i class="fa-solid fa-sign-out"></i></button>
+             <button type="button" class="notification"><i class="fa-solid fa-message"></i></button>
+
+          </nav>
+        </form>
+      </div>
+
+
+         <h1 class="heading" id="title">COMPANY REGISTRATION</h1>
+          
+            <div class="input-group">
+    
+              <div class="input-field" id="nameField">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" placeholder="COMPANY NAME" required>
+              </div>
+    
+              <div class="input-field" id="addressField">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <input type="text" placeholder="ADDRESS" required>
+              </div>              
+            
+
+              <div class="input-field">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" placeholder="STATE" required>
+            </div>
+
+            <div class="input-field" id="experience">
+            <input type="text" placeholder="LOCATION" required>
+            </div>
+
+            <div class="input-field" id="experience">
+              <input type="text" placeholder="REGISTRATION NUMBER" required>
+            </div>
+
+            <form action="upload.php" method="post" enctype="multipart/form-data">
+              <label for="imageUpload" class="imgbtn">Select an image:</label>
+              <input type="file" id="imageUpload" name="image" accept="image/*">
+              <input type="submit" value="Upload Image">
+            </form>
+            <button type="submit" class="btn">SUBMIT</button>
+            
+         
+      </div>
+    </div>
+    </div>
+
+    <div class="split right">
+      <div class="centered2">
+        <h1  class="headitem">SELECT THE EVENTS</h1>
+        
+           <input type="checkbox" id="check1" class="check" >BIRTHDAY
+           <input type="checkbox" id="check2" classs=check2>WEDDING
+           <input type="checkbox" id="check3" classs=check>BAPTISM
+           <input type="checkbox" id="check4" classs=check>FUNERAL
+           <input type="checkbox" id="check5" classs=check>HOLY COMMUNION
+           <input type="checkbox" id="check6" classs=check>FESTIVE EVENTS
+           <input type="checkbox" id="check7" classs=check>ANNIVERSARY
+           
+
+
+    
+    </div>
+    </div> 
+
+  </form>
+</body>
+</html>

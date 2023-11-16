@@ -6,6 +6,11 @@ var logger = require('morgan');
 var bodyParser=require('body-parser');
 var session=require('express-session');
 
+//Admin require
+const passport=require('passport');
+const flash=require('express-flash');
+//End Admin Require
+
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
 
@@ -20,9 +25,11 @@ app.use('/login', express.static(path.join(__dirname, 'css/login')));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/css', express.static(path.join(__dirname, 'css')));
 //session configuration
 
 app.use(session({
@@ -31,9 +38,15 @@ app.use(session({
   saveUninitialized: false,
   cookie: { maxAge:2628002880},
 }));
+//Admin Middleware Setup
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+//End Admin Middleware Setup
 
 app.use('/admin', adminRouter);
 app.use('/', usersRouter);
+
 
 
 // catch 404 and forward to error handler
