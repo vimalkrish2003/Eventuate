@@ -42,8 +42,13 @@ router.get('/home', noCacheMiddleware, async function (req, res) {
       return res.redirect('/login');
     }
 
-    console.log(user);
-    res.render('users/home', { user }); // Pass user data to the template
+      // Fetch data from the COMPANY table
+      const [companyData] = await db.execute('SELECT * FROM COMPANY');
+
+     
+
+    res.render('users/home', { user, company: companyData });
+
   } catch (error) {
     console.error('Error checking user existence:', error);
     res.status(500).json({ error: 'Server error' });
@@ -70,7 +75,11 @@ router.get('/pwupdate', function (req, res) {
 router.get('/confirmpwupdate/:token', async function (req, res) {
   const token = req.params.token;
   const currentTime = Date.now();
-
+  
+if(req.session.user){
+  res.redirect('/home')
+}else{
+  
   try {
     // Check if the token exists and is still valid (e.g., within a certain time limit)
     const [tokenData] = await db.execute('SELECT * FROM TOKENS WHERE token = ? AND timestamp >= ?', [token, currentTime - 3600000]);
@@ -84,13 +93,12 @@ router.get('/confirmpwupdate/:token', async function (req, res) {
   } catch (error) {
     console.error('Error redirecting to set a new password', error);
     res.status(500).json({ error: 'Server error' });
-  }
+  }}
 });
 
 // Adding user details to the database
 router.get('/signupsuccess/:token', async function (req, res) {
   if (req.session.user) {
-    console.log('hey')
     res.redirect('/home');
   } else {
     const token = req.params.token;
@@ -255,7 +263,7 @@ router.post('/pwupdate', async function (req, res) {
     const token = tokengenerator.generate();
     
     // Store the token in the database along with the user's email and a timestamp
-    await db.execute('INSERT INTO TOKENS(email, token, timestamp) VALUES (?, ?, ?)', [email, token, Date.now]);
+    await db.execute('INSERT INTO TOKENS(email, token, timestamp) VALUES (?, ?, ?)', [email, token, Date.now()]);
     
     // Send an email to the user with a link to reset the password
     sendPasswordResetEmail(email, token);
@@ -275,6 +283,7 @@ router.post('/confirmpwupdate/:token', async (req, res) => {
   const token = req.params.token;
   const Password = req.body.Password;
 
+ 
   try {
     if (!Password) {
       const errorMessage = 'Password should not be null';
@@ -295,9 +304,15 @@ router.post('/confirmpwupdate/:token', async (req, res) => {
     await db.execute('UPDATE USERDETAILS SET password = ? WHERE email = ?', [hashedPassword, tokenData[0].email]);
     // Delete the used token from the database
     await db.execute('DELETE FROM TOKENS WHERE token = ?', [token]);
+
+ 
+    
+  
     // Render a success message or redirect to a login page
     const success = 'Password reset successfully';
-    res.render('users/login', { success });
+   
+    res.render('users/login', {success});
+    
 
   } catch (error) {
     console.error('Error resetting password:', error);

@@ -11,154 +11,105 @@
   <!-- Navigation Bar-->
   <nav>
     <div class="left-header">
-
       <div>
-       <a><img class="logo" src="/login/eventuate-logo.png" alt=""></a> 
+        <a><img class="logo" src="/login/eventuate-logo.png" alt=""></a> 
       </div>
-
     </div>
 
     <div class="middle-header">
-
       <div>
         <input class="search-bar" type="text" placeholder="events">
       </div>
       <div style="margin-left: -13px;">
         <img class="search-icon" src="/login/search-icon.png" alt="">
       </div>
-
     </div>
 
     <div class="right-header">
-
-    <!--  <div>
-        <img class="event-cart" src="/login/event-cart.png" alt="">
-
-      </div> !-->>
-
       <div class="account-info">
-
         <p class="account-name">{{user.name}}</p>
-
       </div>
-
       <div>
         <img class="account-img" src="/login/account.png" alt="">
       </div>
-
     </div>
-
   </nav>
 
-  <!--Left Bar-->
- 
+  <!-- Left Bar -->
   <div class="left-bar">
-
-    <!--
-
-    <div class="filter-box">
-      <h1 class="filter-box-heading">FILTER</h1>
-      
-      
-
-      <button class="rating-button">Rating</button>
-      <div class="rating-filter">
-        <p>5&#11088;<input type="checkbox" name="Rating"></p>
-        <p>4&#11088;<input type="checkbox" name="Rating"></p>
-        <p>3&#11088;<input type="checkbox" name="Rating"></p>
-        <p>2&#11088;<input type="checkbox" name="Rating"></p>
-        <p>1&#11088;<input type="checkbox" name="Rating"></p>
-      </div>
-
-      
-
-      <button class="price-button">Price</button>
-      <div class="price-filter">
-        <p>50000.$<input type="checkbox" name="Rating"></p>
-        <p>25000.$<input type="checkbox" name="Rating"></p>
-        <p>10000.$<input type="checkbox" name="Rating"></p>
-        <p>5000.0$<input type="checkbox" name="Rating"></p>
-        <p>2000.0$<input type="checkbox" name="Rating"></p>
-      </div>
-
-    </div>
--->
-
     <div style="margin-bottom: 20px; display: flex; align-items: center;">
-  <button class="logout-button" onclick="logout()">Log Out<img class="logout-img" src="/login/power.png" alt=""></button>
+      <button class="logout-button" onclick="confirmlogout()">Log Out<img class="logout-img" src="/login/power.png" alt=""></button>
+    </div>
+    <script>
+      function confirmlogout() {
+        const confirmation = window.confirm("Are you sure want to log out?");
+        if (confirmation) {
+          window.location.href = '/logout';
+        } else {
+          // Do nothing or handle cancellation
+        }
+      }
+    </script>
+  </div>
+
+  <!-- Suggestions -->
+  <div class="suggestions">
+    <div class="top-suggestion-plate">
+      <p>Top Suggestions</p>
+    </div>
+
+    <div class="suggestion-card">
+      <img class="suggestion-img" src="/login/team-images/teamA.jpg" alt="" />
+      <div class="suggestion-card-info">
+        <p style="text-align: center; margin-right: 30px;">{{company.[0].compname}}</p>
+        <div class="mini-info-box">
+          <p class="mini-info">{{company.[0].complocation}}</p>
+          <p class="mini-info">{{company.[0].compcategory}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="suggestion-card">
+      <img class="suggestion-img" src="/login/team-images/teamA.jpg" alt="" />
+      <div class="suggestion-card-info">
+        <p style="text-align: center; margin-right: 30px;">{{company.[1].compname}}</p>
+        <div class="mini-info-box">
+          <p class="mini-info">{{company.[1].complocation}}</p>
+          <p class="mini-info">{{company.[1].compcategory}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="suggestion-card">
+      <img class="suggestion-img" src="/login/team-images/teamA.jpg" alt="" />
+      <div class="suggestion-card-info">
+        <p style="text-align: center; margin-right: 30px;">{{company.[2].compname}}</p>
+        <div class="mini-info-box">
+          <p class="mini-info">{{company.[2].complocation}}</p>
+          <p class="mini-info">{{company.[2].compcategory}}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <!-- Main Card Grid -->
+<div class="main-card-grid">
+  {{#each company}}
+  <div class="main-card">
+          <div>
+            <img class="main-card-img" src="login/team-images/teamA.jpg" alt="">
+          </div>
+          <div class="team-info">
+            <div class="team-name">{{compname}}</div>
+            <p>Location:{{complocation}}</p>
+            <p>Category:{{compcategory}}</p>
+          </div>
+        </div>
+        {{/each}}
 </div>
 
-<script>
-  function logout() {
-    // Perform any necessary logout actions here
-    window.location.href = '/logout'; // Redirect to the logout route
-  }
-</script>
-
-
-    
-
-  </div>
-
-  <!--Suggestion Box-->
-
-  <div class="suggestions">
-
-    <div class="suggestion-card">
-      
-      <img class="lazy" src="/login/team-images/Team C.jpg" alt="">
-
-      <p> Rating 5&#11088; </p>
-      
-    </div>
-
-    <div class="suggestion-card">
-
-      <img class="lazy" src="/login/team-images/Team D.jpg" alt="">
-
-      <p> Rating 5&#11088; </p>
-    </div>
-
-    <div class="suggestion-card">
-
-      <img class="lazy" src="/login/team-images/Team B.jpg" alt="">
-
-      <p> Rating 5&#11088; </p>
-    </div>
-
-  </div>
-
-<script>
-  // Simulated data (you would replace this with your actual data)
-  const teamData = {
-    "teamC": { rating: 5},
-    "teamD": { rating: 5},
-    "teamB": { rating: 5},
-  };
-
-  // Function to update the ratings
-  function updateRatings() {
-    for (const teamId in teamData) {
-      const ratingElement = document.getElementById(`rating${teamId}`);
-      ratingElement.textContent = teamData[teamId].rating + '⭐';
-    }
-  }
-
-  // Periodically update the ratings (e.g., every 30 seconds)
-  setInterval(updateRatings, 30000); // Update every 30 seconds
-  updateRatings(); // Initial update
- </script>
-
-  <!--Main Card Grid-->
-  <div class="main-card-grid">
-
-  </div>
-
-
-    
-
-
-  <script type="module" src="/login/home.js"></script>
-  
 </body>
 </html>
