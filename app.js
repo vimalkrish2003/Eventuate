@@ -8,23 +8,17 @@ const session = require('express-session');
 const Handlebars = require('handlebars');
 
 //Admin require
-const passport=require('passport');
-const flash=require('express-flash');
+const passport = require('passport');
+const flash = require('express-flash');
 //End Admin Require
-
 
 Handlebars.registerHelper('json', function (context) {
   return JSON.stringify(context);
 });
 
-
-
-
-
+const app = express(); // Initialize Express
 const adminRouter = require('./routes/admin');
 const usersRouter = require('./routes/users');
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,14 +34,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/css', express.static(path.join(__dirname, 'css')));
 //session configuration
 
-
 // session configuration
-app.use(session({
-  secret: 'vimal_punda',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { maxAge: 2628002880 },
-}));
+app.use(
+  session({
+    secret: 'vimal_punda',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 2628002880 },
+  })
+);
+
 //Admin Middleware Setup
 app.use(passport.initialize());
 app.use(passport.session());
@@ -58,12 +54,12 @@ app.use('/admin', adminRouter);
 app.use('/', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
