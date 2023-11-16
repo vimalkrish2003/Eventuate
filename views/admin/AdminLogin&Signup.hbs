@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../../css/admin//css/AdminLogin&Signup..css">
+  <script src="https://kit.fontawesome.com/970c139854.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  {{#if messages}}
+  <div class="alert alert-danger">
+    {{#each messages}}
+    <p>{{this}}</p>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  <div class="container">
+
+    <div class="form-box">
+      <h1 id="title">Admin Sign Up</h1>
+      <form method="post" action="/admin/signup" id="AdmAuthForm">
+        <div class="input-group">
+
+          <div class="input-field" id="nameField">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" placeholder="Company Name" name="CompanyName">
+          </div>
+
+          <div class="input-field" id="phoneField">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+            <input type="number" placeholder="Phone" name="Phone">
+          </div>
+
+
+
+          <div class="input-field">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" placeholder="Email" name="email">
+          </div>
+
+          <div class="input-field">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" placeholder="Password" name="password">
+          </div>
+
+          <div class="forgot-field">
+            <p id="forgot-pass">Forgot Password </p>
+            <a id="click-here" class="click-here" href="reset.html">Click Here</a>
+          </div>
+
+
+        </div>
+        <div class="btn-field">
+          <button type="button" id="signupBtn">Sign up</a></button>
+          <button type="button" id="signinBtn" class="disable">Sign in</button>
+        </div>
+
+        <div class="submit-field">
+          <button type="submit" id="submitBtn">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <script>
+
+    let signupBtn = document.getElementById("signupBtn");
+    let signinBtn = document.getElementById("signinBtn");
+    let nameField = document.getElementById("nameField");
+    let phoneField = document.getElementById("phoneField");
+    let title = document.getElementById("title");
+    let forgotField = document.querySelector('.forgot-field');
+    let AdmAuthForm = document.getElementById("AdmAuthForm");
+
+
+
+    signinBtn.addEventListener('click', function () {
+      title.textContent = 'Admin Sign In';
+      nameField.style.maxHeight = "0";
+      phoneField.style.maxHeight = "0";
+      forgotField.classList.add("forgot-field-next");
+      title.innerHTML = "Admin Sign In";
+      signupBtn.classList.add("disable");
+      signinBtn.classList.remove("disable");
+      AdmAuthForm.action = "/admin/signin";
+      console.log('sign in pressed');
+    });
+    signupBtn.addEventListener('click', function () {
+      nameField.style.maxHeight = "60px";
+      phoneField.style.maxHeight = "60px";
+      title.innerHTML = "Admin Sign Up";
+      title.textContent = "Admin Sign Up";
+      forgotField.classList.remove("forgot-field-next");
+      signinBtn.classList.add("disable");
+      signupBtn.classList.remove("disable");
+      AdmAuthForm.action = "/admin/signup";
+      console.log('sign up pressed');
+    });
+
+  </script>
+
+
+
+</body>
+
+</html>

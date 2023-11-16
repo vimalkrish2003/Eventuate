@@ -7,13 +7,18 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const Handlebars = require('handlebars');
 
+//Admin require
+const passport=require('passport');
+const flash=require('express-flash');
+//End Admin Require
+
+
 Handlebars.registerHelper('json', function (context) {
   return JSON.stringify(context);
 });
 
 
 
-const app = express();
 
 
 const adminRouter = require('./routes/admin');
@@ -24,13 +29,17 @@ const usersRouter = require('./routes/users');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-app.use('/login', express.static(path.join(__dirname, 'css/login')));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/css', express.static(path.join(__dirname, 'css')));
+//session configuration
+
 
 // session configuration
 app.use(session({
@@ -39,6 +48,11 @@ app.use(session({
   saveUninitialized: false,
   cookie: { maxAge: 2628002880 },
 }));
+//Admin Middleware Setup
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+//End Admin Middleware Setup
 
 app.use('/admin', adminRouter);
 app.use('/', usersRouter);
