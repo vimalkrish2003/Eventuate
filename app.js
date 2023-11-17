@@ -7,10 +7,10 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const Handlebars = require('handlebars');
 
-//Admin require
+// Admin require
 const passport = require('passport');
 const flash = require('express-flash');
-//End Admin Require
+// End Admin Require
 
 Handlebars.registerHelper('json', function (context) {
   return JSON.stringify(context);
@@ -19,6 +19,7 @@ Handlebars.registerHelper('json', function (context) {
 const app = express(); // Initialize Express
 const adminRouter = require('./routes/admin');
 const usersRouter = require('./routes/users');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,7 +33,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/css', express.static(path.join(__dirname, 'css')));
-//session configuration
+app.use('/database/images', express.static('/home/razalak/eventuate/database/images'));
+// session configuration
 
 // session configuration
 app.use(
@@ -44,11 +46,11 @@ app.use(
   })
 );
 
-//Admin Middleware Setup
+// Admin Middleware Setup
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-//End Admin Middleware Setup
+// End Admin Middleware Setup
 
 app.use('/admin', adminRouter);
 app.use('/', usersRouter);
