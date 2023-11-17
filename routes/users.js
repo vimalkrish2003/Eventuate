@@ -10,6 +10,41 @@ const tokengenerator = require('token-generator')({
   salt: 'secret-key',
   timestampMap: 'abcdefghij',
 });
+const multer= require('multer');
+const path = require('path');
+const fs = require('fs').promises;
+
+//multer setup
+const storage = multer.diskStorage({
+  destination: async function (req, file, cb) {
+    const uploadFolder = path.join(__dirname, '..', 'database', 'images'); // Path to the images folder in the database directory
+
+       // Log the uploadFolder value for debugging
+    console.log('uploadFolder:', uploadFolder);
+    
+    // Create the 'images' folder if it doesn't exist
+    try {
+      await fs.mkdir(uploadFolder, { recursive: true });
+    } catch (err) {
+      console.error('Error creating images folder:', err);
+    }
+
+    cb(null, uploadFolder);
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, Date.now() + ext);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+
+
+
+
+
+
 
 /* Listed All the GET methods here */
 
@@ -150,6 +185,72 @@ router.get('/signupsuccess/:token', async function (req, res) {
     }
   }
 });
+
+//get method for logout
+router.get('/logout', function (req, res) {
+  // Destroy the session to log the user out
+  req.session.destroy(function(err) {
+    if (err) {
+      console.error('Error destroying session:', err);
+    }else{
+    // Redirect the user to the login page or any other desired page after logout
+    console.log('session destroyed successfully')
+    res.redirect('/login');
+    }
+  });
+});
+
+//sample router to upload images(should be deleted after admin side setup)
+router.get('/upload',function(req,res){
+  res.render('users/sampleimage.hbs')
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* Listed All the POST methods here */
@@ -320,20 +421,112 @@ router.post('/confirmpwupdate/:token', async (req, res) => {
   }
 });
 
-router.get('/logout', function (req, res) {
-  // Destroy the session to log the user out
-  req.session.destroy(function(err) {
-    if (err) {
-      console.error('Error destroying session:', err);
-    }else{
-    // Redirect the user to the login page or any other desired page after logout
-    console.log('session destroyed successfully')
-    res.redirect('/login');
+//sample post method for image upload(should be deleted)
+router.post('/upload', upload.single('image'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded.' });
     }
-  });
+
+    const imageUrl = `/database/images/${req.file.filename}`;
+
+    // Assuming you have a companyId in the request body, change it accordingly
+    const compname = req.body.compname;
+
+    // Update the COMPIMAGE column in the COMPANY table
+    const updateQuery = 'UPDATE COMPANY SET compimage = ? WHERE compname = ?';
+    await db.query(updateQuery, [imageUrl, compname]);
+
+    res.json({ message: 'Image uploaded successfully!', imageUrl });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
+
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Function to confirm email during signup
 async function confirmationEmail(email, token) {
@@ -361,7 +554,6 @@ async function confirmationEmail(email, token) {
     }
   });
 }
-
 // Function to send a password reset email
 
 async function sendPasswordResetEmail(email, token) {
