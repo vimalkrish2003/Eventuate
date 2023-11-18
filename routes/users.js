@@ -79,10 +79,11 @@ router.get('/home', noCacheMiddleware, async function (req, res) {
 
       // Fetch data from the COMPANY table
       const [companyData] = await db.execute('SELECT * FROM COMPANY');
+      const [bookingsData] = await db.execute('SELECT * FROM BOOKINGS');
+      const [flagData] = await db.execute('SELECT * FROM FLAG');
+     console.log(flagData)
 
-     
-
-    res.render('users/home', { user, company: companyData });
+    res.render('users/home', { user, company: companyData, bookings:bookingsData,flag:flagData });
 
   } catch (error) {
     console.error('Error checking user existence:', error);
