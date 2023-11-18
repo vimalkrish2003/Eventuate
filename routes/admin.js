@@ -119,6 +119,22 @@ router.post('/signup',checkNotAuthenticated, async (req, res) => {
 
 })
 
+router.post('/AddDetails',checkAuthenticated,async (req,res)=>
+{
+  let conn;
+  try {
+    conn = await dbpool.getConnection();
+    const query = "UPDATE COMPANY SET compstate=?, compaddress=?, complocation=?, compcategory=? WHERE compregno=?";
+    await conn.query(query, [req.body.state, req.body.address, req.body.location, req.body.category, req.user.compregno]);
+    req.flash('success', 'Details added successfully');
+    res.redirect('/admin');
+  } catch (err) {
+      throw err;
+  } finally {
+      if (conn) conn.release(); //release to pool
+  }
+})
+
 router.delete('/logout', (req, res) => {
   if (req.isAuthenticated()) {
     req.logout(function (err) {
