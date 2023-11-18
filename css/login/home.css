@@ -481,7 +481,28 @@ nav {
   color: rgba(255, 255, 255, 0.729);
   margin-bottom: 20px;
   
-  
-
-  
 }
+
+.main-card:not(.search-result) {
+  display: none;
+}
+
+/* Add this to your existing CSS */
+.search-result {
+  display: flex; /* or whatever display property you want for search results */
+}
+
+.date-input {
+  height: 33px;
+  width:  105px;
+  background: linear-gradient(60deg,rgba(253, 21, 21, 0.2),rgba(217, 38, 38, 0.5));
+  border: none;
+  border-radius: 5px;
+  margin-left: 30px;
+  object-position: center;
+  color: rgba(146, 135, 135, 0.781);
+}
+
+
+
+

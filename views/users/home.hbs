@@ -18,11 +18,14 @@
 
     <div class="middle-header">
       <div>
-        <input class="search-bar" type="text" placeholder="events">
+        <input id="searchInput" class="search-bar" type="text" placeholder="events">
       </div>
       <div style="margin-left: -13px;">
         <img class="search-icon" src="/css/login/search-icon.png" alt="">
       </div>
+        {{!-- <div>
+        <input id="dateInput" type="date" class="date-input" placeholder="Select the date">
+      </div> --}}
     </div>
 
     <div class="right-header">
@@ -61,10 +64,10 @@
     <div class="suggestion-card">
       <img class="suggestion-img" src="{{company.[0].compimage}}" alt="" />
       <div class="suggestion-card-info">
-        <p style="text-align: center; margin-right: 30px;">{{company.[0].compname}}</p>
+        <p style="text-align: center; margin-right: 30px;">{{company.[5].compname}}</p>
         <div class="mini-info-box">
-          <p class="mini-info">{{company.[0].complocation}}</p>
-          <p class="mini-info">{{company.[0].compcategory}}</p>
+          <p class="mini-info">{{company.[5].complocation}}</p>
+          <p class="mini-info">{{company.[5].compcategory}}</p>
         </div>
       </div>
     </div>
@@ -90,26 +93,54 @@
         </div>
       </div>
     </div>
-
   </div>
 
-
-
+ 
   <!-- Main Card Grid -->
-<div class="main-card-grid">
-  {{#each company}}
-  <div class="main-card">
-          <div>
-           <img class="main-card-img" src="{{compimage}}" alt='{{compname}}'>
-          </div>
-          <div class="team-info">
-            <div class="team-name">{{compname}}</div>
-            <p>Location:{{complocation}}</p>
-            <p>Category:{{compcategory}}</p>
-          </div>
+  <div class="main-card-grid">
+    {{#each company}}
+      <div class="main-card search-result hidden-card">
+        <div>
+          <img class="main-card-img" src="{{compimage}}" alt='{{compname}}'>
         </div>
-        {{/each}}
-</div>
+        <div class="team-info">
+          <div class="team-name">{{compname}}</div>
+          <p>Location:{{complocation}}</p>
+          <p>Category:{{compcategory}}</p>
+        </div>
+      </div>
+    {{/each}}
+  </div>
 
+  
+  <!-- Include this script after your existing script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const searchInput = document.getElementById('searchInput');
+      const mainCards = document.querySelectorAll('.main-card');
+
+      searchInput.addEventListener('input', function () {
+        const searchTerm = searchInput.value.toLowerCase();
+
+        mainCards.forEach(function (card) {
+          const cardName = card.querySelector('.team-name').textContent.toLowerCase();
+          const cardLocation = card.querySelector('.team-info p:nth-child(2)').textContent.toLowerCase();
+          const cardCategory = card.querySelector('.team-info p:nth-child(3)').textContent.toLowerCase();
+
+          const matchesName = cardName.includes(searchTerm);
+          const matchesLocation = cardLocation.includes(searchTerm);
+          const matchesCategory = cardCategory.includes(searchTerm);
+
+          const isMatch = matchesName || matchesLocation || matchesCategory;
+
+          if (isMatch) {
+            card.classList.add('search-result');
+          } else {
+            card.classList.remove('search-result');
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
