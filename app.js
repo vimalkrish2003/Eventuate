@@ -6,7 +6,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const Handlebars = require('handlebars');
-const app=express();
+
 
 // Admin require
 const passport = require('passport');
