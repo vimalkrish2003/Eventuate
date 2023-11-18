@@ -3,13 +3,29 @@ var router = express.Router();
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const initializePassport = require('./adminPassportConfig');
-const methodOverride= require('method-override');
+const methodOverride = require('method-override');
+const dbpool = require('../database/mariadbconnection');
 
-const users = [];
+
 //SIGNUP &LOGIN
 initializePassport(passport,
-  email => users.find(user => user.email === email),
-  id => users.find(user => user.id === id)
+  async (compemail) => {
+    let conn;
+    try {
+      conn = await dbpool.getConnection();
+      const rows = await conn.query("SELECT * FROM COMPANY WHERE compemail=?", [compemail]);
+      return rows[0];
+
+    }
+    catch (err) {
+      throw err;
+    }
+    finally {
+      if (conn)
+        conn.release();
+    }
+  }
+
 )
 //Middlewares
 //using method override to implement logout with delete method
@@ -27,63 +43,91 @@ function checkNotAuthenticated(req, res, next)  //used for site which should not
   if (req.isAuthenticated()) {
     return res.redirect('/admin');
   }
-  next();  
+  next();
 }
 
 
 
 //Get Functions
-router.get('/signin', function (req, res, next) {
-  res.render('admin/AdminLogin&Signup.hbs',{ messages: req.flash() });
+router.get('/signin',checkNotAuthenticated, function (req, res, next) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  res.render('admin/AdminLogin&Signup.hbs', { messages: req.flash() });
 });
-router.get('/AddDetails', function (req, res, next) {
-  res.render('admin/CompanyDetails'); 
+router.get('/AddDetails',checkAuthenticated, function (req, res, next) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  res.render('admin/CompanyDetails');
 });
-router.get('/', function (req, res, next) {
+router.get('/',checkAuthenticated, function (req, res, next) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   res.render('admin/AdminHomepage.hbs');
 });
 //Post Functions
-router.post('/signin', passport.authenticate('local',
+router.post('/signin',checkNotAuthenticated,(req,res,next)=>
+{
+  passport.authenticate('local',(err,user,info)=>
   {
-    successRedirect: '/admin/',
-    failureRedirect: '/admin/signin',
-    failureFlash: true
-  }
+    if(err)
+    {
+      return next(err);
+    }
+    if(!user)
+    {
+      req.flash('error',info.message);
+      return res.redirect('/admin/signin');
+    }
+    req.logIn(user,(err)=>
+    {
+      if(err)
+      {
+        return next(err);
+      }
+      if(user.compstate==null||user.compaddress==null||user.complocation==null||user.compcategory==null)
+      {
+        return res.redirect('/admin/AddDetails');
+      }
+      else
+      {
+        return res.redirect('/admin');
+      }
+    })
 
-))
+  })(req,res,next);
+});
 
-router.post('/signup', async (req, res) => {
+router.post('/signup',checkNotAuthenticated, async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    users.push(
-      {
-        id: Date.now().toString(),
-        CompanyName: req.body.CompanyName,
-        Phone: req.body.Phone,
-        email: req.body.email,
-        password: hashedPassword
-      })
-
-    req.flash('success', 'Signup successful');
-    res.redirect('/admin/signin');
+    let conn;
+    try {
+      conn = await dbpool.getConnection();
+      const query = "INSERT INTO COMPANY (compregno, compname, compphone, compemail, comppassword) VALUES (?, ?, ?, ?, ?)";
+      await conn.query(query, [Date.now().toString(), req.body.CompanyName, req.body.Phone, req.body.email, hashedPassword]);
+      req.flash('success', 'Signup successful. Please Signin to continue');
+      res.redirect('/admin/signin');
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) conn.release(); //release to pool
+    }
   }
-  catch
+  catch(e)
   {
+    console.log(e);
     req.flash('error', 'Signup failed');
     res.redirect('/admin/signin');
   }
-  console.log(users);
+
 })
 
 router.delete('/logout', (req, res) => {
   if (req.isAuthenticated()) {
-    req.logout(function(err) {
+    req.logout(function (err) {
       if (err) {
-          return next(err);
+        return next(err);
       }
       // Redirect or respond after successful logout
       res.redirect('/admin/signin');
-  });
+    });
   } else {
     res.status(400).send('Not logged in');
   }

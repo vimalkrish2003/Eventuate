@@ -1,53 +1,30 @@
-.form-box {
-
-  width: 0%;
-  max-width: 0%;
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 50px 60px 70px;
-  text-align: center;
-  border-radius: 10px;
-
-}
-
 .heading{
 
   color: white;
   position: fixed;
-  top: -40%;
-  left: 10%;
-  font-size: 4rem;
-  max-width: 800px;
-  border-color: red;
-  border: 2px;
-}
+  left: 23%;
+  font-size: 3vw;
+  text-align:center;
 
-.input-group{
-
-  border-color: red;
-  border: 5px;
+  
 }
 
 input{
 
-
-  width: 700px;
+  position: relative;
+  width: 40vw;;
   height: 50px;
+  font-size: .75vw;
 
   
 }
 
-.input-field{
+.logout{
 
-  margin-top: 50px;
-  top: 100px;
-  left: 10px;
-
-  
+font-size: 30px;
+margin-left: 20px;
 }
+
 .checkbox{
 
   display: inline;
@@ -83,8 +60,8 @@ input{
 
 /* Control the left side */
 .left {
-  left: 0;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.816), rgba(14, 1, 1, 0.921)), url('home-bbg.png');  }
+  background-image: linear-gradient(rgba(0, 0, 0, 0.816), rgba(14, 1, 1, 0.921)), url('home-bbg.png');  
+}
 
 /* Control the right side */
 .right {
@@ -94,18 +71,10 @@ input{
   right: 0;
   position: absolute;
   right: 10px;
-  top: 10px;
+  top: 50px;
 }
 
 /* If you want the content centered horizontally and vertically */
-.centered1{
-  position: absolute;
-  top: 50%;
-  left: 40%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
 
 .centered2{
   position: absolute;
@@ -116,53 +85,25 @@ input{
   color: white;
 }
 
-/*for log out button*/
-
-.logout{
-
- font-size: 30px;
- position: absolute;
- left: -50%;
- top:-30%;
- border-radius: 100px;
- width: 80px;
-
-}
-
-.notification{
-
-font-size: 30px;
-position: absolute;
-left: -35%;
-top:-30%;
-border-radius: 70px;
-width: 80px;
-}
-
-.notification{
-
-position: absolute;
-}
-
 label[for="imageUpload"] {
-  margin-top: 50px;
+  margin-top: 20px;
   color: white; 
   position: fixed;
-  top:520px;
-  left:-4px;/* Change the text color */
+  top:67%;
+  left:21%;/* Change the text color */
    /* Adjust the top margin as needed */
 }
 
 input[type="file"] {
   background-color: white; /* Change the background color of the button */
   color: white; /* Change the text color of the button */
-  margin-top: 50px; 
-  margin-left: 10px;
-  max-width: 69%;
-  height: 50px;/* Adjust the top margin as needed */
+  margin-top: 20px; 
+  margin-left: 40px;
+  max-width: 4.6%;
+  height: 20px;/* Adjust the top margin as needed */
   position: fixed;
-  top:520px;
-  left:105px
+  top:67%;
+  left:26%
 
 
 }
@@ -170,21 +111,48 @@ input[type="file"] {
 input[type="submit"]{
   
   position: fixed;
-  top: 510px;
-  left:610px;
+  top: 600px;
+  left:1078px;
   margin-top: 60px;
-  max-width: 14%;
+  max-width:6%;
 }
 
 .btn{
 
   position: fixed;
-  top: 580px;
-  left:350px;
+  top: 670px;
+  left:750px;
   margin-top: 70px;
   scale: 1.3;
   border-radius: 10px;
-  width: 10%;
+  width: 4%;
 
 
+}
+
+.input-group{
+
+  color: white;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+
+}
+
+.input-field{
+
+margin-top: 50px;
+}
+
+.fa{
+
+color: white;
+padding-right: 10px;
+}
+
+.headitem{
+
+
+color: white;
+font-size: 19px;
 }
