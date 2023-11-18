@@ -494,15 +494,42 @@ nav {
 
 .date-input {
   height: 33px;
-  width:  105px;
+  width:  155px;
   background: linear-gradient(60deg,rgba(253, 21, 21, 0.2),rgba(217, 38, 38, 0.5));
   border: none;
   border-radius: 5px;
   margin-left: 30px;
   object-position: center;
   color: rgba(146, 135, 135, 0.781);
+  position: fixed;
+  top: 115px;
+  left: 1px;
+
+
 }
 
+.selectevent{
+
+  color: rgba(146, 135, 135, 0.781);
+  position: fixed;
+  top: 50px;
+  left:15px;
+  font-size: 27px;
+
+}
+
+.filter{
+
+ position: fixed;
+ top: 130px;
+ left: 190px;
+ font-size: 23px;
+ background: linear-gradient(60deg,rgba(253, 21, 21, 0.2),rgba(217, 38, 38, 0.5));
+ border-radius: 5px;
+ color:rgba(146, 135, 135, 0.781); 
+ font-size: 10px;
+
+}
 
 
 
