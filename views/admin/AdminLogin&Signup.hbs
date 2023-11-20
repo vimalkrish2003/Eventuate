@@ -11,7 +11,7 @@
 
 <body>
   {{#if messages}}
-  <div class="alert alert-danger">
+  <div class="flash_message">
     {{#each messages}}
     <p>{{this}}</p>
     {{/each}}
@@ -101,6 +101,16 @@
       AdmAuthForm.action = "/admin/signup";
       console.log('sign up pressed');
     });
+
+    window.onload = function () {
+      const flashMessages = document.querySelectorAll('.flash_message');
+      flashMessages.forEach(flashMessage => {
+        setTimeout(() => {
+          flashMessage.style.display = 'none';
+        }, 5000); // 5000ms = 5s
+      });
+    };
+
 
   </script>
 

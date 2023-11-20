@@ -5,6 +5,8 @@ const passport = require('passport');
 const initializePassport = require('./adminPassportConfig');
 const methodOverride = require('method-override');
 const dbpool = require('../database/mariadbconnection');
+const multer = require('multer');
+const upload = multer({ dest: 'adminuploads/' }); // This will save files to a directory named 'uploads'
 
 
 //SIGNUP &LOGIN
@@ -121,17 +123,47 @@ router.post('/signup',checkNotAuthenticated, async (req, res) => {
 
 router.post('/AddDetails',checkAuthenticated,async (req,res)=>
 {
+  if(req.body['Birthday']==null && req.body['Wedding']==null && req.body['Baptism']==null && req.body['Funeral']==null && req.body['Holy Communion']==null && req.body['Festive Events']==null && req.body['Anniversary']==null)
+  {
+    req.flash('error', 'Please select atleast one category');
+     return res.redirect('/admin/AddDetails');
+  }
   let conn;
   try {
     conn = await dbpool.getConnection();
+    const categories =['Birthday','Wedding','Baptism','Funeral','Holy Communion','Festive Events','Anniversary'];
+    const checkedCategories= categories.filter(category => req.body[category]==='on');
+    const strCategories=checkedCategories.join(', ');
     const query = "UPDATE COMPANY SET compstate=?, compaddress=?, complocation=?, compcategory=? WHERE compregno=?";
-    await conn.query(query, [req.body.state, req.body.address, req.body.location, req.body.category, req.user.compregno]);
+    console.log(req.body.state);
+    await conn.query(query, [req.body.state, req.body.address, req.body.location,strCategories, req.user.compregno]);
     req.flash('success', 'Details added successfully');
     res.redirect('/admin');
   } catch (err) {
       throw err;
   } finally {
-      if (conn) conn.release(); //release to pool
+    if (conn) conn.release(); //release to pool
+  }
+})
+
+router.post('/addImage',upload.single('image'),async (req,res)=>
+{
+  let conn;
+  try
+  {
+    conn =await dbpool.getConnection();
+    const qry="UPDATE COMPANY SET compimage=? WHERE compregno=?"
+    const imagePath=req.file.path; //save the file path
+    await conn.query(qry,[imagePath,req.user.compregno]);
+    res.redirect('/admin');
+  }
+  catch(err){
+    throw err;
+  }
+  finally
+  {
+    if(conn)
+      conn.release;
   }
 })
 

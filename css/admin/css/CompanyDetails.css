@@ -1,52 +1,54 @@
-.heading{
+.heading {
 
   color: white;
   position: fixed;
   left: 23%;
   font-size: 3vw;
-  text-align:center;
+  text-align: center;
 
-  
+
 }
 
-input{
+input {
 
   position: relative;
-  width: 40vw;;
+  width: 40vw;
+  ;
   height: 50px;
   font-size: .75vw;
 
-  
+
 }
 
-.logout{
+.logout {
 
-font-size: 30px;
-margin-left: 20px;
+  font-size: 30px;
+  margin-left: 20px;
 }
 
-.checkbox{
+.checkbox {
 
   display: inline;
 }
 
 .checkbox-group {
-          display: inline;
-      }
+  display: inline;
+}
 
 
 
 .checkbox-group label {
-          
-          margin-right: 2px;
-      }
+
+  margin-right: 2px;
+}
 
 .checkbox-group.checkbox2 {
-          
-          margin-right:10px;
-          position: relative;
-          margin-left: 10px;
-      }
+
+  margin-right: 10px;
+  position: relative;
+  margin-left: 10px;
+}
+
 /* Split the screen in half */
 .split {
   height: 100%;
@@ -60,13 +62,13 @@ margin-left: 20px;
 
 /* Control the left side */
 .left {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.816), rgba(14, 1, 1, 0.921)), url('home-bbg.png');  
+  background-image: linear-gradient(rgba(0, 0, 0, 0.816), rgba(14, 1, 1, 0.921)), url('home-bbg.png');
 }
 
 /* Control the right side */
 .right {
 
-  background-image: linear-gradient(rgba(0, 0, 0, 0.816), rgba(14, 1, 1, 0.921)), url('home-bbg.png'); 
+  background-image: linear-gradient(rgba(0, 0, 0, 0.816), rgba(14, 1, 1, 0.921)), url('home-bbg.png');
   width: 20%;
   right: 0;
   position: absolute;
@@ -76,10 +78,10 @@ margin-left: 20px;
 
 /* If you want the content centered horizontally and vertically */
 
-.centered2{
+.centered2 {
   position: absolute;
-  top: 38%;
-  left: 50%;
+  top: 68%;
+  left: 140%;
   transform: translate(-50%, -50%);
   text-align: center;
   color: white;
@@ -87,41 +89,43 @@ margin-left: 20px;
 
 label[for="imageUpload"] {
   margin-top: 20px;
-  color: white; 
+  color: white;
   position: fixed;
-  top:67%;
-  left:21%;/* Change the text color */
-   /* Adjust the top margin as needed */
+  top: 67%;
+  left: 21%;
+  /* Change the text color */
+  /* Adjust the top margin as needed */
 }
 
 input[type="file"] {
-  background-color: white; /* Change the background color of the button */
-  color: white; /* Change the text color of the button */
-  margin-top: 20px; 
+  background-color: white;
+  /* Change the background color of the button */
+  color: white;
+  /* Change the text color of the button */
+  margin-top: 20px;
   margin-left: 40px;
   max-width: 4.6%;
-  height: 20px;/* Adjust the top margin as needed */
+  height: 20px;
+  /* Adjust the top margin as needed */
   position: fixed;
-  top:67%;
-  left:26%
-
-
+  top: 67%;
+  left: 26%
 }
 
-input[type="submit"]{
-  
+input[type="submit"] {
+
   position: fixed;
   top: 600px;
-  left:1078px;
+  left: 650px;
   margin-top: 60px;
-  max-width:6%;
+  max-width: 6%;
 }
 
-.btn{
+.btn {
 
   position: fixed;
-  top: 670px;
-  left:750px;
+  top: 500px;
+  left: 750px;
   margin-top: 70px;
   scale: 1.3;
   border-radius: 10px;
@@ -130,7 +134,7 @@ input[type="submit"]{
 
 }
 
-.input-group{
+.input-group {
 
   color: white;
   position: absolute;
@@ -139,20 +143,56 @@ input[type="submit"]{
 
 }
 
-.input-field{
+.input-field {
 
-margin-top: 50px;
+  margin-top: 50px;
 }
 
-.fa{
+.fa {
 
-color: white;
-padding-right: 10px;
+  color: white;
+  padding-right: 10px;
 }
 
-.headitem{
+.headitem {
 
 
-color: white;
-font-size: 19px;
+  color: white;
+  font-size: 30px;
+  margin-top: 8%;
+}
+
+.vertical {
+  border-left: 6px solid rgb(75, 72, 72);
+  height: 950px;
+  position: absolute;
+  top: -60%;
+  left: 108%;
+}
+
+.btn {
+
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.flash_message {
+  color: white;
+  /* White text color */
+  text-align: center;
+  /* Center alignment */
+  position: fixed;
+  /* Fixed position */
+  top: 0;
+  /* At the top */
+  left: 0;
+  /* From the left */
+  width: 100%;
+  /* Full width */
+  padding: 15px;
+  /* Add some padding */
+  background-color: #f44336;
+  /* Red background */
+  z-index: 1000;
+  /* On top of other elements */
 }
