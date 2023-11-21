@@ -79,10 +79,10 @@ router.get('/home', noCacheMiddleware, async function (req, res) {
 
       // Fetch data from the COMPANY table
       const [companyData] = await db.execute('SELECT * FROM COMPANY');
-      const [bookingsData] = await db.execute('SELECT * FROM BOOKINGS');
-      const [flagData] = await db.execute('SELECT * FROM FLAG');
+     
+      
 
-    res.render('users/home', { user, company: companyData, bookings:bookingsData,flag:flagData });
+    res.render('users/home', { user, company: companyData });
 
   } catch (error) {
     console.error('Error checking user existence:', error);
@@ -204,6 +204,15 @@ router.get('/logout', function (req, res) {
 router.get('/upload',function(req,res){
   res.render('users/sampleimage.hbs')
 });
+
+
+
+
+
+
+
+
+
 
 
 
@@ -443,6 +452,41 @@ router.post('/upload', upload.single('image'), async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+//post method for booking
+router.post('/booking', async function (req, res) {
+  const user = req.session.user;
+  console.log(user)
+
+  if (!user) {
+    // If the user is not logged in, redirect to the login page
+    return res.redirect('/login');
+  }
+
+  try {
+    const compregno = req.body.compregno;
+    console.log(compregno)
+
+    // Fetch user details
+    const [userData] = await db.execute('SELECT * FROM USERDETAILS WHERE email = ?', [user.email]);
+
+    // Fetch company details
+    const [companyData] = await db.execute('SELECT * FROM COMPANY WHERE compregno = ?', [compregno]);
+
+    if (userData.length === 0 || companyData.length === 0) {
+      // Handle the case where no data is found
+      return res.status(404).json({ error: 'Data not found' });
+    }
+
+    // Pass the retrieved data to the booking view
+    res.render('users/booking', { userData: userData[0], companyData: companyData[0] });
+
+  } catch (error) {
+    console.error('Error fetching booking data:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 
 
 module.exports = router;

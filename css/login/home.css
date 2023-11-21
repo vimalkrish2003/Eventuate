@@ -452,14 +452,15 @@ nav {
 
 .team-info {
   margin-top: 10px;
-  margin-left: 20px;
+ 
   
   height: 200px;
-  width: 600px;
+  width: 350px;
   display: flex;
   flex-direction: column;  
   row-gap: 10px;
-
+  align-items: center;
+ 
 }
 
 .team-info p {
@@ -530,6 +531,31 @@ nav {
  font-size: 10px;
 
 }
+
+.card-button {
+
+  color: rgba(255, 255, 255, 0.76);
+  background-color: black;
+  border-radius: 20px;
+  width: 120px;
+  padding: 10px;
+  border-color: rgba(196, 35, 35, 0.836);
+  border-width: 1.5px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 15px;
+  font-weight: bold;
+
+
+}
+
+.card-button:hover {
+  opacity: 0.8;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.514);
+  
+}
+
+
+
 
 
 

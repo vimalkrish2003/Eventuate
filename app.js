@@ -35,6 +35,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/css', express.static(path.join(__dirname, 'css')));
 app.use('/database/images', express.static('/home/razalak/eventuate/database/images'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 // session configuration
 
 // session configuration
