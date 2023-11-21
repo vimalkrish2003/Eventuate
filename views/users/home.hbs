@@ -18,7 +18,7 @@
 
     <div class="middle-header">
       <div>
-        <input id="searchInput" class="search-bar" type="text" placeholder="events">
+        <input id="searchInput" class="search-bar" type="text" placeholder="search for company/category/location">
       </div>
       <div style="margin-left: -13px;">
         <img class="search-icon" src="/css/login/search-icon.png" alt="">
@@ -100,10 +100,12 @@
     </div>
   </div>
 
- 
+  
   <!-- Main Card Grid -->
+  
   <div class="main-card-grid">
     {{#each company}}
+    <form action="/booking" method="POST">
       <div class="main-card search-result hidden-card">
         <div>
           <img class="main-card-img" src="{{compimage}}" alt='{{compname}}'>
@@ -112,40 +114,66 @@
           <div class="team-name">{{compname}}</div>
           <p>Location:{{complocation}}</p>
           <p>Category:{{compcategory}}</p>
+          <input type="hidden" name="compregno" value="{{compregno}}">
+          <div ><button class="card-button">BOOK NOW</button></div>
         </div>
       </div>
+      </form>
     {{/each}}
   </div>
 
   
-  <!-- Include this script after your existing script -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const searchInput = document.getElementById('searchInput');
-      const mainCards = document.querySelectorAll('.main-card');
+ <!-- Include this script after your existing script -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('searchInput');
+    const mainCardGrid = document.querySelector('.main-card-grid');
+    const mainCards = document.querySelectorAll('.main-card');
 
-      searchInput.addEventListener('input', function () {
-        const searchTerm = searchInput.value.toLowerCase();
+    // Store the initial state of the cards
+    const initialCardsState = Array.from(mainCards).map(card => card.cloneNode(true));
 
-        mainCards.forEach(function (card) {
-          const cardName = card.querySelector('.team-name').textContent.toLowerCase();
-          const cardLocation = card.querySelector('.team-info p:nth-child(2)').textContent.toLowerCase();
-          const cardCategory = card.querySelector('.team-info p:nth-child(3)').textContent.toLowerCase();
+    searchInput.addEventListener('input', function () {
+      const searchTerm = searchInput.value.toLowerCase();
 
-          const matchesName = cardName.includes(searchTerm);
-          const matchesLocation = cardLocation.includes(searchTerm);
-          const matchesCategory = cardCategory.includes(searchTerm);
+      // Create a document fragment to store the search-result elements
+      const fragment = document.createDocumentFragment();
 
-          const isMatch = matchesName || matchesLocation || matchesCategory;
+      mainCards.forEach(function (card, index) {
+        const cardName = card.querySelector('.team-name').textContent.toLowerCase();
+        const cardLocation = card.querySelector('.team-info p:nth-child(2)').textContent.toLowerCase();
+        const cardCategory = card.querySelector('.team-info p:nth-child(3)').textContent.toLowerCase();
 
-          if (isMatch) {
-            card.classList.add('search-result');
-          } else {
-            card.classList.remove('search-result');
-          }
-        });
+        const matchesName = cardName.includes(searchTerm);
+        const matchesLocation = cardLocation.includes(searchTerm);
+        const matchesCategory = cardCategory.includes(searchTerm);
+
+        const isMatch = matchesName || matchesLocation || matchesCategory;
+
+        if (isMatch) {
+          card.classList.add('search-result');
+          // Append search-result cards to the fragment
+          fragment.appendChild(card.cloneNode(true));
+        } else {
+          card.classList.remove('search-result');
+        }
       });
+
+      // Clear the main card grid
+      mainCardGrid.innerHTML = '';
+
+      // Append the fragment (search-result elements) to the main card grid
+      mainCardGrid.appendChild(fragment);
+
+      // If the search input is empty, revert to the initial state
+      if (!searchTerm.trim()) {
+        mainCardGrid.innerHTML = '';
+        initialCardsState.forEach(card => mainCardGrid.appendChild(card.cloneNode(true)));
+      }
     });
-  </script>
+  });
+</script>
+
+ 
 </body>
 </html>

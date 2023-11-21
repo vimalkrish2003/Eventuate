@@ -1,0 +1,597 @@
+body {
+     background-image: linear-gradient(rgba(0, 0, 0, 0.816), rgba(14, 1, 1, 0.921)), url('home-bbg.png');
+   
+     box-shadow: inset 0 0 30px black;
+   
+     background-position: center;
+     background-size: cover;
+     overflow-x: hidden;
+     
+   
+   
+   
+   }
+   
+   
+   nav {
+     background-color: rgba(0, 0, 0, 0.793);
+     position: fixed;
+     height: 70px;
+     left: 0;
+     right: 0;
+     top: 0;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     z-index: 20;
+   
+   }
+   
+   .left-header {
+     width: 1fr;
+   
+   }
+   
+   .logo {
+     margin-left: 40px;
+     width: 100px;
+     height: 70px;
+     object-fit: cover;
+   }
+   
+   .logo:hover
+   {
+     opacity: 0.7;
+   }
+   
+   
+   .middle-header{
+     width: 1fr;
+   
+   
+     display: flex;
+     align-items: center;
+   
+   }
+   
+   .search-bar {
+     background: linear-gradient(60deg,rgba(253, 21, 21, 0.2),rgba(217, 38, 38, 0.5));
+     border: none;
+     padding: 10px 15px;
+     border-radius: 5px;
+     color: rgba(255, 255, 255, 0.781);
+     margin-right: 20px;
+     width: 100%;
+     min-width: 300px;
+   
+   
+   }
+   
+   .search-bar::placeholder{
+     color: rgba(255, 255, 255, 0.296);
+   }
+   .search-icon {
+     width: 20px;
+     height: 20px;
+     object-fit: cover;
+     object-position: center;
+     cursor: pointer;
+   }
+   
+   .search-icon:hover {
+     opacity: 0.5;
+     width: 30px;
+     height: 30px;
+   }
+   
+   .right-header {
+     width: 1fr;
+     display: flex;
+     align-items: center;
+     column-gap: 10px;
+     justify-content: space-between;
+   }
+   
+   
+   .account-info {
+     color: white;
+     font-weight: bold;
+     width: 90px;
+     margin-right: 10px;
+   }
+   
+   
+   .account-img{
+   
+     width: 50px;
+     height: 50px;
+     border-radius: 25px;
+     object-fit: contain;
+     object-position: center;
+     margin-right: 30px;
+   
+     background-color: rgb(224, 7, 7);
+   }
+   
+   
+   .left-bar {
+   
+     background-color: rgba(8, 8, 8, 0.767);
+     position: fixed;
+     left: 0;
+     bottom: 0;
+     top: 70px;
+     width: 300px;
+     box-shadow: 0 0 20px rgba(0, 0, 0, 0.807);
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     font-family: 'Times New Roman', Times, serif;
+   }
+  
+   
+       .split {
+           height: 100%;
+           width: 100%;
+           position: absolute;
+           top: 0;
+           overflow-x: hidden;
+           padding-top: 20px;
+         }
+   
+   
+   /* Control the left side */
+   .left {
+       left: 2px;
+       width: 57%;
+       height: 200%;
+       position: absolute;
+       top:70px;
+       left:0px;
+       overflow: hidden;
+       z-index: 0;
+       
+      
+     }
+     
+     /* Control the right side */
+     .right {
+       width: 43%;
+       position: absolute;
+       right: 100px;
+       top: 75px;
+       z-index: 0;
+       font-size: 12px;
+     }
+   
+   /*image in the window*/
+     .mainimg{
+   
+        width: 45%;
+        height: 60%;
+        position: fixed;
+        top: 15%;
+        left: 8%;
+        border: solid;
+        border-color: rgb(99, 29, 29);
+        border-width: 5px;
+        border-radius: 10px;
+     }
+   
+     .mainimg:hover{
+   
+       transform: translate(0px,-10px);
+     }
+   
+     /*title of name*/
+   
+   .teamname{
+   
+       color: white;
+       position: fixed;
+       top: 75%;
+       left: 17%;
+       font-size: 80px;
+   }
+     
+   .teamname:hover{
+   
+     transform: translate(0px,-10px);
+   }
+
+
+   
+   /*location of team title*/
+     
+   .titleloc{
+   
+       color: white;
+       background-color: black;
+       position: absolute;
+       top: 10%;
+       left: 45%;
+       border: solid;
+       border-color: rgb(99, 29, 29);
+       padding: 10px 10px;
+       border-radius: 100px;
+       border-width: 3px;
+       width: 190px;
+       text-align: center;
+   
+   }
+   
+   .titleloc:hover{
+   
+     transform: translate(0px,-10px);
+   }
+   
+   .detail-loc{
+      
+   
+      color: white;
+      position: absolute;
+      left: 50%;
+      top: 11%;
+      padding-top: 10px;
+      font-size: 30px;
+   
+   }
+   
+   .detail-loc:hover{
+   
+     transform: translate(0px,-10px);
+   }
+   
+   /*contact detials*/
+   
+   .contact{
+      
+   
+       color: white;
+       background-color: black;
+       position: absolute;
+       top: 21%;
+       left: 43%;
+       border: solid;
+       border-color: rgb(99, 29, 29);
+       padding: 10px 10px;
+       border-radius: 100px;
+       border-width: 3px;
+       width: 220px;
+       text-align: center;
+   
+   }
+   
+   .contact:hover{
+   
+      transform: translate(0px,-10px);
+   
+   }
+   
+   .detail-con{
+      
+   
+     color: white;
+     position: absolute;
+     left: 49%;
+     top: 28%;
+     padding-top: 10px;
+     font-size: 30px;
+   }
+   
+   .detail-con:hover{
+   
+     transform: translate(0px,-10px);
+   
+   }
+   
+   /*list of services provided by the team*/
+   
+   .list{
+   
+       color: white;
+       background-color: black;
+       position: absolute;
+       top: 32%;
+       left: 36%;
+       border: solid;
+       border-color: rgb(99, 29, 29);
+       padding: 10px 10px;
+       border-radius: 100px;
+       border-width: 3px;
+       width: 330px;
+       text-align: center;
+   
+   
+   }
+   
+   .list:hover{
+   
+     transform: translate(0px,-10px);
+   
+   }
+
+   .listitem{
+
+    color: red;
+   }
+   
+   .service1{
+   
+      color: white;
+      font-size: 20px;
+      position: absolute;
+      top: 42%;
+      left: 28%;
+   
+   }
+   
+   .service2{
+   
+     color: white;
+     font-size: 20px;
+     position: absolute;
+     top: 42%;
+     left: 60%;
+   
+   }
+   
+   .service3{
+   
+     color: white;
+     font-size: 20px;
+     position: absolute;
+     top: 47%;
+     left: 28%;
+   
+   }
+   
+   .service4{
+   
+     color: white;
+     font-size: 20px;
+     position: absolute;
+     top: 47%;
+     left: 60%;
+   
+   }
+   
+   .service5{
+   
+     color: white;
+     font-size: 20px;
+     position: absolute;
+     top: 52%;
+     left: 28%;
+   
+   }
+   
+   .service6{
+   
+     color: white;
+     font-size: 20px;
+     position: absolute;
+     top: 52%;
+     left: 60%;
+   
+   }
+   
+   /*button for booking*/
+   
+   .book{
+     
+     color: white;
+     background-color: black;
+     position: absolute;
+     font-size: 30px;
+     top: 58%;
+     left: 42%;
+     border: solid;
+     border-color: rgb(99, 29, 29);
+     border-radius: 100px;
+     padding: 15px 20px;
+     border-width: 4px;
+   
+   
+   }
+   
+   .book:hover{
+   
+     transform: translate(0px,-10px);
+   
+   }
+   
+   a{
+   
+     text-decoration: none;
+     color: white;
+   }
+   
+   a:link{
+   
+     text-decoration: none;
+   
+   }
+   a:visited{
+   
+     text-decoration: none;
+   }
+   
+   a:hover{
+   
+     text-decoration: none;
+   }
+   
+   
+   /*from for booking dteails*/
+   
+   .form{
+   
+      color: white;
+      font-size: 20px;
+      position: absolute;
+      top: 120%;
+      left: 65%;
+      align-self: center;
+   
+   }
+   
+   /*first name*/
+   
+   
+   label[for="fname"]{
+   
+     color: white;
+   
+   }
+   
+   
+   
+   /*second name*/
+   
+   label[for="lname"]{
+   
+     color:white;
+   
+   }
+   
+   /*fname and lname box*/
+   
+   input[type="flname"]{
+   
+     width: 420px;
+     height: 35px;
+     border-radius: 50px;
+     margin-top: 10px;
+     margin-bottom: 10px;
+     font-size: 25px;
+   
+      
+   
+   }
+   
+   /*event selecttion*/
+   
+   
+   
+   label[for="selectevent"]{
+   
+   
+     margin-right: 50px;
+   
+     
+   }
+   
+   select[for="selecteventdetail"]{
+   
+   
+      font-size: 18px;
+      border-radius: 50px;
+      width: 250px;
+      height: 45px;
+      margin-left: -15px;
+      margin-top: 30px;
+      margin-bottom: 30px;
+   
+   
+   }
+   
+   
+   
+   /*date selectore*/
+   
+   input[type="date"]{
+     background-color: white;
+     color: black;
+     border-radius: 50px;
+     width: 150px;
+     height: 25px;
+     font-size: 15px;
+     border: solid;
+     border-color: white;
+     margin-bottom: 18px;
+     margin-top: 20px;
+   
+   
+   }
+   
+   /*time selector*/
+   
+   
+   input[type="time"]{
+   
+   
+     background-color: white;
+     color: black;
+     border-radius: 50px;
+     width: 150px;
+     height: 25px;
+     font-size: 15px;
+     border: solid;
+     border-color: white;
+     margin-top: 20px;
+   
+   
+   }
+   
+   label[for="addressbooking"]{
+   
+   
+      color: white;
+      
+   
+   }
+   
+   input[type="address"]{
+   
+   
+       width: 320px;
+       margin-left: 10px;
+       border-radius: 50px;
+       height: 35px;
+       max-width: 320px;
+       margin-top: 30px;
+       font-size: 20px;
+   
+   }
+   
+   label[for="cost"]{
+   
+   
+      padding-bottom: 20px;
+   
+   }
+   
+   output[type="cost"]{
+   
+   
+     font-size: 45px;
+     padding-bottom: 20px;
+   
+   }
+   
+   .next{
+   
+   
+      color: white;
+      background-color: black;
+      border: solid;
+      border-color:rgb(99, 29, 29);
+      border-radius: 50px;
+      font-size: 30px;
+      width: 150px;
+      height: 50px;
+      margin-top: 35px;
+      margin-left: 140px;
+   
+   }
+
+   .formheading{
+
+   }
+   
+   
+   
+   
+   
+   
