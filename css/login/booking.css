@@ -383,9 +383,9 @@ body {
      color: white;
      background-color: black;
      position: absolute;
-     font-size: 30px;
-     top: 58%;
-     left: 42%;
+     font-size: 25px;
+     top: 42%;
+     left: 45%;
      border: solid;
      border-color: rgb(99, 29, 29);
      border-radius: 100px;
@@ -586,9 +586,7 @@ body {
    
    }
 
-   .formheading{
-
-   }
+   
    
    
    
