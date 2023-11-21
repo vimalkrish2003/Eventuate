@@ -22,7 +22,7 @@
     <div class="left-header">
 
       <div>
-       <a href="../intro.html"><img class="logo" src="/css/login/eventuate-logo.png" alt=""></a> 
+       <div><img class="logo" src="/css/login/eventuate-logo.png" alt=""></div> 
       </div>
 
     </div>
@@ -35,7 +35,7 @@
 
       <div class="account-info">
 
-        <p class="account-name">Reyuvel Kunjumon</p>
+        <p class="account-name">{{user.name}}</p>
 
       </div>
 
@@ -54,11 +54,11 @@
 
     <!--image of the team in left-->
 
-      <img src="/css/login/team-images/teamA.jpg" class="mainimg">
+      <img src="{{company.compimage}}" class="mainimg">
 
     <!--title of the team in below image-->
       
-    <h1 class="teamname">TEAM NAME</h1>
+    <h1 class="teamname">{{company.compname}}</h1>
 
       </div>
 
@@ -71,24 +71,18 @@
 
     <!--LOCATION-->
          
-          <h1 class="titleloc"><i class="fa fa-location-arrow">     IDUKKI</i></h1>
+          <h1 class="titleloc"><i class="fa fa-location-arrow">     {{company.complocation}}</i></h1>
 
     <!--CONTACT-->
 
-          <h1 class="contact"><i class="fa fa-mobile">      9393939393</i></h1>
+          <h1 class="contact"><i class="fa fa-mobile">      {{company.compphone}}</i></h1>
 
     <!--SERVICES-->
 
-          <h1 class="list"><i class="fa fa-list">                SERVICES PROVIDED</i></h1>
+          <h1 class="list"><i class="fa fa-list">                {{company.compcategory}}</i></h1>
 
-    <!--SERVICE LIST-->
-      
-          <h1 class="service1"><i class="fa fa-circle">SERVICES PROVIDED</i></h1>
-          <h1 class="service2"><i class="fa fa-circle">SERVICES PROVIDED</i></h1>
-          <h1 class="service3"><i class="fa fa-circle">SERVICES PROVIDED</i></h1>
-          <h1 class="service4"><i class="fa fa-circle">SERVICES PROVIDED</i></h1>
-          <h1 class="service5"><i class="fa fa-circle">SERVICES PROVIDED</i></h1>
-          <h1 class="service6"><i class="fa fa-circle">SERVICES PROVIDED</i></h1>
+
+        
 
     <!--BOOKING-->
 

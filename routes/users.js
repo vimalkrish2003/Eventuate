@@ -479,7 +479,7 @@ router.post('/booking', async function (req, res) {
     }
 
     // Pass the retrieved data to the booking view
-    res.render('users/booking', { userData: userData[0], companyData: companyData[0] });
+    res.render('users/booking', { user: userData[0], company: companyData[0] });
 
   } catch (error) {
     console.error('Error fetching booking data:', error);
