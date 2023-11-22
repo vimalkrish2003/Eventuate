@@ -1,2 +1,53 @@
-<p>{{company.compname}}</p>
-<p>{{user.email}}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Confirmed</title>
+  <link rel="stylesheet" href="/css/login/bookingform.css">
+</head>
+<body>
+
+  <div class="message-container">
+    <div style="border-color: rgba(0, 128, 0, 0.753);box-shadow: inset 0 0 20px rgba(0, 128, 0, 0.458);" class="message-box">
+
+      <div class="image-container">
+        <img class="message-img" src="/css/login/check.png" alt="">
+      </div>
+
+      <div class="message-text">
+        <p style="margin: 4px;">Booking Confirmed</p>
+      </div>
+
+      <div>
+        <p style="color: rgba(151, 227, 58, 0.575);font-size: 25px;">{{company.comname}}</p>
+      </div>
+
+      <div class="booking-mesage-box">
+        <div class="booking-message">
+          <p>Booking ID : {{booking.bookingid}}</p>
+        </div>
+  
+        <div  class="booking-message">
+          <p>Slot : {{booking.starttime}}-{{booking.endtime}}</p>
+        </div>
+  
+     <div class="booking-message">
+  <p>Date: {{booking.startdate}} - {{booking.enddate}}</p>
+</div>
+
+
+      </div>
+
+      <div>
+
+      <div>
+        <p style="color: rgb(13, 136, 74);font-family: 'Times New Roman', Times, serif;font-weight:bold;">Thank You for using our services</p>
+      </div>
+
+    </div>
+  </div>
+
+  
+</body>
+</html>

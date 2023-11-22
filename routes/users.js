@@ -506,25 +506,37 @@ router.post('/bookingform',async function(req,res){
       await db.execute('INSERT INTO BOOKINGS(compregno, email, bookingcategory, startdate, enddate, starttime, endtime, firstname, lastname, bookingaddress) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
       [compregno, user.email, category, startingdate, endingdate, startingtime, endingtime, fname, lname, address]);
     
+      const [bookingData] = await db.execute('SELECT * FROM BOOKINGS WHERE email = ?', [user.email]);
+    
       // Fetch user details
     const [userData] = await db.execute('SELECT * FROM USERDETAILS WHERE email = ?', [user.email]);
 
     // Fetch company details
     const [companyData] = await db.execute('SELECT * FROM COMPANY WHERE compregno = ?', [compregno]);
 
-    if (userData.length === 0 || companyData.length === 0) {
+    if (userData.length === 0 || companyData.length === 0 || bookingData.length===0 ) {
       // Handle the case where no data is found
       return res.status(404).json({ error: 'Data not found' });
     }
 
-      res.render('users/bookingstatus',{user: userData[0], company: companyData[0] });
+     // Format date strings
+     const formattedStartDate = bookingData[0].startdate.toLocaleDateString();
+     const formattedEndDate = bookingData[0].enddate.toLocaleDateString();
+
+       // Create a new object with formatted dates
+    const formattedBookingData = {
+      ...bookingData[0],
+      startdate: formattedStartDate,
+      enddate: formattedEndDate,
+    };
 
 
-
-
-
-
-
+     res.render('users/bookingstatus', {
+      user: userData[0],
+      company: companyData[0],
+      booking: formattedBookingData,
+    });
+    
 
     } catch (error) {
     console.error('Error fetching booking data:', error);
