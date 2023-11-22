@@ -1,0 +1,69 @@
+body {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.816), rgba(14, 1, 1, 0.921)), url('./home-bbg.png');
+
+  box-shadow: inset 0 0 30px black;
+
+  background-position: center;
+  background-size: cover;
+  overflow-x: hidden;
+
+
+}
+
+.message-container {
+  display: flex;
+  width: 100%;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-container {
+  margin-top: 50px;
+}
+
+.message-box {
+
+
+  border: 2px solid rgba(118, 4, 4, 0.404);
+  width: 400px;
+  height: 62vh;
+
+  backdrop-filter: blur(30px);
+  border-radius: 30px;
+  box-shadow: inset 0 0 20px rgba(97, 3, 3, 0.648);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
+
+}
+
+
+
+.message-text {
+  margin-top: 20px;
+  color: rgba(255, 255, 255, 0.503);
+  font-size: 30px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+
+.booking-mesage-box {
+  width: 100%;
+  padding-left: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+
+}
+
+.booking-message {
+  color: rgba(255, 255, 255, 0.503);
+}
+.booking-message p {
+  margin: 3px;
+}
