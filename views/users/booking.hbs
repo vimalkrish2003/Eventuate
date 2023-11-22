@@ -96,12 +96,13 @@
 
 <!--booking form-->
 
-<form class="form">
+<form class="form" action="/bookingform" method="post">
 
   <!--heading-->
 
-  <h1 class="formheading" id="booking">ENTER THE DETAILS</h1>
+  <h1 class="formheading" id="booking">ENTER BOOKING DETAILS</h1>
 
+<input type="hidden" name="compregno" value="{{ company.compregno }}">
   <!--fname-->
   <label for="fname">First name:</label><br>
   <input type="flname" id="fname" name="fname"><br>
@@ -116,7 +117,7 @@
 
     <label for="selectevent">Select Event:</label>
 
-  <select for="selecteventdetail" id="selectevent" >
+  <select for="selecteventdetail" id="selectevent" name="category">
     <option value="NONE">NONE</option>
     <option value="BIRTHDAY">BIRTHDAY</option>
     <option value="WEDDING">WEDDING</option>
@@ -139,10 +140,10 @@
   </div>
 
   <label for="datefrom">From:</label>
-  <input type="date" id="datefrom">
+  <input type="date" id="datefrom" name="startingdate">
 
   <label for="dateto">To:</label>
-  <input type="date" id="dateto">
+  <input type="date" id="dateto" name="endingdate">
 
 
   </div>
@@ -156,10 +157,10 @@
     </div>
   
     <label for="timefrom">From:</label>
-    <input type="time" id="timefrom">
+    <input type="time" id="timefrom" name="startingtime">
   
     <label for="timeto">To:</label>
-    <input type="time" id="timeto">
+    <input type="time" id="timeto" name="endingtime">
 
 
     <!--address detials-->
@@ -167,13 +168,13 @@
     <div>
 
     <label for="addressboking">Address:</label>
-    <input type="address" id="adressbooking">
+    <input type="address" id="adressbooking" name="address">
 
     </div>
 
     <div>
 
-      <button class="next" id="next"><B>FINISH</B></button>
+      <button type="submit" class="next" id="next"><B>FINISH</B></button>
     </div>
   
     </div>
