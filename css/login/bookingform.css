@@ -10,6 +10,7 @@ body {
 
 }
 
+
 .message-container {
   display: flex;
   width: 100%;
@@ -66,4 +67,25 @@ body {
 }
 .booking-message p {
   margin: 3px;
+}
+
+.back-button-container {
+  position: fixed;
+  bottom: 100px;
+}
+
+.back-button {
+  padding: 15px;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  background-color: green;
+  font-size: 15px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.back-button:hover 
+{
+  background-color: red;
+  box-shadow: 0 0 20px red;
 }
