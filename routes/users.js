@@ -460,10 +460,10 @@ router.post('/booking', async function (req, res) {
   const user = req.session.user;
   console.log(user)
 
-  if (!user) {
+  if (!req.session.user) {
     // If the user is not logged in, redirect to the login page
     return res.redirect('/login');
-  }
+  }else{
 
   try {
     const compregno = req.body.compregno;
@@ -487,11 +487,13 @@ router.post('/booking', async function (req, res) {
     console.error('Error fetching booking page:', error);
     res.status(500).json({ error: 'Server error' });
   }
+}
 });
 
 //Retrieve the booking details and insert them into the database table
 router.post('/bookingform',async function(req,res){
   const user=req.session.user;
+  if(req.session.user){
     try{
       const fname=req.body.fname;
       const lname=req.body.lname;
@@ -542,6 +544,9 @@ router.post('/bookingform',async function(req,res){
     console.error('Error fetching booking data:', error);
     res.status(500).json({ error: 'Server error' });
   }
+}else{
+  res.redirect('/login');
+}
 })
 
 
