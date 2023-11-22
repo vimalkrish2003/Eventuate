@@ -453,6 +453,8 @@ router.post('/upload', upload.single('image'), async (req, res) => {
   }
 });
 
+
+
 //post method for booking
 router.post('/booking', async function (req, res) {
   const user = req.session.user;
@@ -482,14 +484,119 @@ router.post('/booking', async function (req, res) {
     res.render('users/booking', { user: userData[0], company: companyData[0] });
 
   } catch (error) {
-    console.error('Error fetching booking data:', error);
+    console.error('Error fetching booking page:', error);
     res.status(500).json({ error: 'Server error' });
   }
 });
 
+//Retrieve the booking details and insert them into the database table
+router.post('/bookingform',async function(req,res){
+  const user=req.session.user;
+    try{
+      const fname=req.body.fname;
+      const lname=req.body.lname;
+      const category=req.body.category;
+      const startingdate=req.body.startingdate;
+      const endingdate=req.body.endingdate;
+      const startingtime=req.body.startingtime;
+      const endingtime=req.body.endingtime;
+      const address=req.body.address;
+      const compregno=req.body.compregno;
+
+      await db.execute('INSERT INTO BOOKINGS(compregno, email, bookingcategory, startdate, enddate, starttime, endtime, firstname, lastname, bookingaddress) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+      [compregno, user.email, category, startingdate, endingdate, startingtime, endingtime, fname, lname, address]);
+    
+      // Fetch user details
+    const [userData] = await db.execute('SELECT * FROM USERDETAILS WHERE email = ?', [user.email]);
+
+    // Fetch company details
+    const [companyData] = await db.execute('SELECT * FROM COMPANY WHERE compregno = ?', [compregno]);
+
+    if (userData.length === 0 || companyData.length === 0) {
+      // Handle the case where no data is found
+      return res.status(404).json({ error: 'Data not found' });
+    }
+
+      res.render('users/bookingstatus',{user: userData[0], company: companyData[0] });
+
+
+
+
+
+
+
+
+    } catch (error) {
+    console.error('Error fetching booking data:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+})
+
+
 
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
