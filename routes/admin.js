@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const fs =require('fs');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const initializePassport = require('./adminPassportConfig');
@@ -59,9 +60,26 @@ router.get('/AddDetails',checkAuthenticated, function (req, res, next) {
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   res.render('admin/CompanyDetails');
 });
-router.get('/',checkAuthenticated, function (req, res, next) {
+router.get('/',checkAuthenticated, async (req, res, next)=>{
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-  res.render('admin/AdminHomepage.hbs');
+  let conn;
+  try
+  {
+    conn =await dbpool.getConnection();
+    const qry="SELECT * FROM COMPANY WHERE compregno=?";
+    const rows=await conn.query(qry,[req.user.compregno]);
+    const imagePath=rows[0].compimage;
+    const imageFile=fs.readFileSync(imagePath);
+    const base64Image=Buffer.from(imageFile).toString('base64');
+    res.render('admin/AdminHomepage.hbs',{user:rows[0],image:base64Image});
+  }
+  catch(err){
+    throw err;
+  }
+  finally{
+    if(conn)
+      conn.release();
+  }
 });
 //Post Functions
 router.post('/signin',checkNotAuthenticated,(req,res,next)=>
@@ -152,7 +170,13 @@ router.post('/addImage',upload.single('image'),async (req,res)=>
   try
   {
     conn =await dbpool.getConnection();
-    const qry="UPDATE COMPANY SET compimage=? WHERE compregno=?"
+    const qryOldImage="SELECT compimage FROM COMPANY WHERE compregno=?";
+    const oldImage=await conn.query(qryOldImage,[req.user.compregno]);
+    if(oldImage[0].compimage!=null)
+    {
+      fs.unlinkSync(oldImage[0].compimage);
+    }
+    const qry="UPDATE COMPANY SET compimage=? WHERE compregno=?";
     const imagePath=req.file.path; //save the file path
     await conn.query(qry,[imagePath,req.user.compregno]);
     res.redirect('/admin');
@@ -163,7 +187,7 @@ router.post('/addImage',upload.single('image'),async (req,res)=>
   finally
   {
     if(conn)
-      conn.release;
+      conn.release();
   }
 })
 
