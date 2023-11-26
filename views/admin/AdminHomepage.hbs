@@ -1,19 +1,175 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+
 
 <head>
-    <title>Admin Homepage</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/admin/css/AdminHomepage.css">
+    <title>adminmainpage</title>
 </head>
 
+
+
 <body>
-    <h1>Welcome to the Admin Homepage</h1>
-    <p>You are logged in as an admin.</p>
-    <form method="POST" action="/admin/logout?_method=DELETE">
-        <button type="submit">Logout</button>
-    </form>
-    <a href="/admin/AddDetails">
-        <button type="button">Add Details</button>
-    </a>
+    <!-- Navigation Bar-->
+    <nav>
+        <div class="left-header">
+            <div>
+                <a href="../intro.html"><img class="logo" src="/css/login/eventuate-logo.png" alt=""></a>
+                <form method="post" action="/admin/logout?_method=DELETE">
+                    <button class="logout" type="submit>"><i class="fa fa-sign-out"></i></button>
+                </form>
+
+            </div>
+        </div>
+
+
+        <div class="middle-header"></div>
+
+        <div class="right-header">
+
+            <div class="account-info">
+
+                <p class="account-name">{{user.compname}}</p>
+
+            </div>
+
+            <div>
+                <img class="account-img"  src="data:image/jpeg;base64,{{image}}" alt="upload image">
+            </div>
+        </div>
+    </nav>
+
+
+
+    <!-- Left side of the screen -->
+    <div class="split left">
+
+        <form class="leftform">
+
+            <h1 class="buh"><u>BOOKING YOU HAVE</u></h1>
+
+            <div class="card" onclick="displayForm()">
+
+                <a href="#form-container"><img
+                        src="../../css/admin/img/user-icon-trendy-flat-style-600nw-1697898655.jpg" alt="Avatar"
+                        style="width:100%"></a>
+                <input type="text" id="detail" name="detail" class="detail" readonly>
+            </div>
+
+            <div class="card1" onclick="displayForm()">
+                <img src="../../css/admin/img/user-icon-trendy-flat-style-600nw-1697898655.jpg" alt="Avatar"
+                    style="width:100%">
+                <input type="text" id="detail" name="detail" class="detail1" readonly>
+            </div>
+        </form>
+    </div>
+
+
+
+    <!-- Right side of the screen -->
+    <div class="split right">
+        <form class="form-box" id="formbox">
+            <center>
+
+                <div>
+                    <h1 class="teamname">{{user.compname}}</h1>
+
+                    <h1 class="titleloc"><i class="fa fa-location-arrow"> {{user.complocation}}</i></h1>
+                    <h1 class="contact"><i class="fa fa-mobile"> {{user.compphone}}</i></h1>
+                    <h1 class="list"><i class="fa fa-list"> {{user.compcategory}}</i></h1>
+                    <h1 class="edit"><i class="fa fa-edit"><a href="/admin/AddDetails">EDIT</a></i></h1>
+                </div>
+
+            </center>
+        </form>
+        <!-- Form container -->
+
+
+        <form class="bookingclient">
+            <div class="cont details-container" id="form-container">
+
+
+                <div class="client name">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="jwhhdc " readonly>
+                </div>
+
+
+                <div class="client email">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="wuhdvc" readonly>
+                </div>
+
+
+                <div class="client email">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="whdbcbh" readonly>
+                </div>
+
+
+                <div class="client loc">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location" placeholder="whdvcv" readonly>
+                </div>
+
+
+                <div class="client event">
+                    <label for="event-category">Event Category:</label>
+                    <input type="text" id="event-category" name="event-category" placeholder="whbefhw" readonly>
+                </div>
+
+
+                <div class="client datefro">
+                    <label for="date-from">Date From:</label>
+                    <input type="date" id="date-from" name="date-from" placeholder="whjdbcihb" readonly>
+                </div>
+
+
+                <div class="client dateto">
+                    <label for="date-to">Date To:</label>
+                    <input type="date" id="date-to" name="date-to" placeholder="sjhdchu" readonly>
+                </div>
+
+
+                <div class="client timefro">
+                    <label for="time-from">Time From:</label>
+                    <input type="time" id="time-from" name="time-from" placeholder="shdbch" readonly>
+                </div>
+
+
+                <div class="client timeto">
+                    <label for="time-to">Time To:</label>
+                    <input type="time" id="time-to" name="time-to" placeholder="skhdcbi" readonly>
+                </div>
+
+
+                <div class="client conf">
+                    <button class="confirm" type="submit">Confirm</button>
+                    <button type="submit" class="reject">Reject</button>
+                    <button type="submit" class="goback" onclick="displayDetail()">Go Back</button>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+
+    <script>
+        function displayForm() {
+            document.getElementById("form-container").style.display = "block";
+            document.getElementById("formbox").style.visibility = "hidden";
+        }
+
+        function displayDetail() {
+            document.getElementById("formbox").style.visibility = "block";
+            document.getElementById("form-container").style.display = "hidden";
+        }
+    </script>
 </body>
 
 </html>
