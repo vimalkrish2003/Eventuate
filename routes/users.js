@@ -694,8 +694,6 @@ module.exports = router;
 
 
 
-
-
 // Function to confirm email during signup
 async function confirmationEmail(email, token) {
   const transporter = await nodemailer.createTransport({
