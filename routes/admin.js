@@ -69,8 +69,12 @@ router.get('/',checkAuthenticated, async (req, res, next)=>{
     const qry="SELECT * FROM COMPANY WHERE compregno=?";
     const rows=await conn.query(qry,[req.user.compregno]);
     const imagePath=rows[0].compimage;
-    const imageFile=fs.readFileSync(imagePath);
-    const base64Image=Buffer.from(imageFile).toString('base64');
+    let base64Image=null;
+    if(imagePath!=null)
+    {
+      const imageFile=fs.readFileSync(imagePath);
+      base64Image=Buffer.from(imageFile).toString('base64');
+    }
     res.render('admin/AdminHomepage.hbs',{user:rows[0],image:base64Image});
   }
   catch(err){
