@@ -1,4 +1,4 @@
-// change the value of compregno in the function getupdatedbookingdata and updatebookingstatus
+// Used for admin related routes
 var express = require('express');
 var router = express.Router();
 const fs =require('fs');
@@ -92,9 +92,11 @@ router.get('/getUpdatedBookingData',checkAuthenticated,async (req,res)=>
   try
   {
     conn=await dbpool.getConnection();
-    const qry="SELECT *  FROM BOOKINGS WHERE compregno='ABC123' AND bookingstatus=0";
-    const rows=await conn.query(qry);
+    const qry="SELECT bookingid,compregno,BOOKINGS.email,bookingcategory,startdate,enddate,starttime,endtime,firstname,lastname,bookingaddress,bookingstatus,name,phone,address FROM BOOKINGS INNER JOIN USERDETAILS ON BOOKINGS.email=USERDETAILS.email WHERE compregno=? AND bookingstatus=0";
+    console.log(req.user.compregno);
+    const rows=await conn.query(qry,[req.user.compregno]);
     res.json(rows);
+    
   }
   catch(err)
   {
@@ -221,8 +223,8 @@ router.post('/updateBookingStatus/:id',checkAuthenticated,async (req,res)=>
   try
   {
     conn=await dbpool.getConnection();
-    const qry="UPDATE BOOKINGS SET bookingstatus=? WHERE bookingid=? and compregno='ABC123'";
-    await conn.query(qry,[req.body.status,req.params.id]);
+    const qry="UPDATE BOOKINGS SET bookingstatus=? WHERE bookingid=? and compregno=?";
+    await conn.query(qry,[req.body.status,req.params.id,req.user.compregno]);
     res.json({message : 'Booking status updated successfully'})
   }
   catch(err)
