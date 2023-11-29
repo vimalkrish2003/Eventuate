@@ -17,6 +17,10 @@ Handlebars.registerHelper('json', function (context) {
   return JSON.stringify(context);
 });
 
+Handlebars.registerHelper('eq', function (a, b, options) {
+  return a === b ? options.fn(this) : options.inverse(this);
+});
+
 const app = express(); // Initialize Express
 const adminRouter = require('./routes/admin');
 const usersRouter = require('./routes/users');
@@ -25,6 +29,7 @@ const usersRouter = require('./routes/users');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
 
 app.use(logger('dev'));
 app.use(express.json());

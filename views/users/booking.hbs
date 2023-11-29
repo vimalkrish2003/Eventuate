@@ -103,6 +103,8 @@
   <h1 class="formheading" id="booking">ENTER BOOKING DETAILS</h1>
 
 <input type="hidden" name="compregno" value="{{ company.compregno }}">
+<input type="hidden" name="compname" value="{{ company.compname }}">
+
 
   <!--fname-->
   <label for="fname">First name:</label><br>
@@ -172,6 +174,14 @@
     <input type="address" id="adressbooking" name="address">
 
     </div>
+
+     {{#if errorMessage}}
+            <p class="error-message">{{errorMessage}}</p>
+          {{/if}}
+          {{#if success}}
+            <p class="success-message">{{success}}</p>
+          {{/if}}
+
 
     <div>
 
