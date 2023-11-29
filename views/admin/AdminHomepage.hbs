@@ -38,7 +38,7 @@
             </div>
 
             <div>
-                <img class="account-img"  src="data:image/jpeg;base64,{{image}}" alt="upload image">
+                <img class="account-img" src="data:image/jpeg;base64,{{image}}" alt="upload image">
             </div>
         </div>
     </nav>
@@ -49,22 +49,8 @@
     <div class="split left">
 
         <form class="leftform">
-
+            <button id="refreshButton"><i class="fas fa-sync-alt"></i></button>
             <h1 class="buh"><u>BOOKING YOU HAVE</u></h1>
-
-            <div class="card" onclick="displayForm()">
-
-                <a href="#form-container"><img
-                        src="../../css/admin/img/user-icon-trendy-flat-style-600nw-1697898655.jpg" alt="Avatar"
-                        style="width:100%"></a>
-                <input type="text" id="detail" name="detail" class="detail" readonly>
-            </div>
-
-            <div class="card1" onclick="displayForm()">
-                <img src="../../css/admin/img/user-icon-trendy-flat-style-600nw-1697898655.jpg" alt="Avatar"
-                    style="width:100%">
-                <input type="text" id="detail" name="detail" class="detail1" readonly>
-            </div>
         </form>
     </div>
 
@@ -148,9 +134,9 @@
 
 
                 <div class="client conf">
-                    <button class="confirm" type="submit">Confirm</button>
-                    <button type="submit" class="reject">Reject</button>
-                    <button type="submit" class="goback" onclick="displayDetail()">Go Back</button>
+                    <button class="confirm" type="button">Confirm</button>
+                    <button type="button" class="reject">Reject</button>
+                    <button type="button" class="goback" onclick="displayDetail()">Go Back</button>
 
                 </div>
             </div>
@@ -160,14 +146,84 @@
 
 
     <script>
-        function displayForm() {
+        let BookingData = [];
+        let currentBookingId;
+
+        document.getElementById('refreshButton').addEventListener('click', updateBookingData);
+        function displayForm(booking) {
             document.getElementById("form-container").style.display = "block";
             document.getElementById("formbox").style.visibility = "hidden";
+            //storing the booking id
+            currentBookingId = booking.bookingid;
+            document.getElementById("name").value = booking.name;
+            document.getElementById("email").value = booking.email;
+            //document.getElementById("phone").value = booking.phone;
+            document.getElementById("event-category").value = booking.bookingcategory;
         }
 
         function displayDetail() {
-            document.getElementById("formbox").style.visibility = "block";
-            document.getElementById("form-container").style.display = "hidden";
+            document.getElementById("formbox").style.visibility = "visible";
+            document.getElementById("form-container").style.display = "none";
+        }
+
+        function updateBookingStatus(status) {
+            console.log("client side update booking status");
+            console.log('currentBookingId:', currentBookingId);
+
+            const booking = BookingData.find(booking => booking.bookingid == currentBookingId);
+            console.log('booking:', booking);
+            // Send a request to the server to update the booking status
+            fetch(`/admin/updateBookingStatus/${booking.bookingid}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ status }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Update the booking data
+                    updateBookingData();
+                    displayDetail();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+
+        function updateBookingData() {
+            fetch('/admin/getUpdatedBookingData')
+                .then(response => response.json())
+                .then(data => {
+                    if (JSON.stringify(data) != JSON.stringify(BookingData)) {
+                        // Clear existing cards
+                        const form = document.querySelector('.leftform');
+                        const oldCards = form.querySelectorAll('.card');
+                        oldCards.forEach(card => card.remove());
+                        // Create new cards
+                        data.forEach(booking => {
+                            const card = document.createElement('div');
+                            card.className = 'card';
+                            card.addEventListener('click', () => displayForm(booking));
+                            card.innerHTML = `
+                            <input type="text" name="email" class="email" value="${booking.email}" readonly>
+                            <input type="text" name="bookingCategory" class="bookingCategory" value="${booking.bookingcategory}" readonly>
+                            `;
+                            form.appendChild(card);
+                        });
+
+                        // Update current booking data
+                        BookingData = data;
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        window.onload = function () {
+            updateBookingData();
+            const confirmButton = document.querySelector('.confirm');
+            const rejectButton = document.querySelector('.reject');
+            confirmButton.addEventListener('click', () => updateBookingStatus(1));
+            rejectButton.addEventListener('click', () => updateBookingStatus(-1));
         }
     </script>
 </body>

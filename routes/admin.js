@@ -1,3 +1,4 @@
+// change the value of compregno in the function getupdatedbookingdata and updatebookingstatus
 var express = require('express');
 var router = express.Router();
 const fs =require('fs');
@@ -85,6 +86,26 @@ router.get('/',checkAuthenticated, async (req, res, next)=>{
       conn.release();
   }
 });
+router.get('/getUpdatedBookingData',checkAuthenticated,async (req,res)=>
+{
+  let conn;
+  try
+  {
+    conn=await dbpool.getConnection();
+    const qry="SELECT *  FROM BOOKINGS WHERE compregno='ABC123' AND bookingstatus=0";
+    const rows=await conn.query(qry);
+    res.json(rows);
+  }
+  catch(err)
+  {
+    throw err;
+  }
+  finally
+  {
+    if(conn)
+      conn.release();
+  }
+})
 //Post Functions
 router.post('/signin',checkNotAuthenticated,(req,res,next)=>
 {
@@ -186,6 +207,27 @@ router.post('/addImage',upload.single('image'),async (req,res)=>
     res.redirect('/admin');
   }
   catch(err){
+    throw err;
+  }
+  finally
+  {
+    if(conn)
+      conn.release();
+  }
+})
+router.post('/updateBookingStatus/:id',checkAuthenticated,async (req,res)=>
+{
+  let conn;
+  try
+  {
+    conn=await dbpool.getConnection();
+    const qry="UPDATE BOOKINGS SET bookingstatus=? WHERE bookingid=? and compregno='ABC123'";
+    await conn.query(qry,[req.body.status,req.params.id]);
+    res.json({message : 'Booking status updated successfully'})
+  }
+  catch(err)
+  {
+    console.log(err);
     throw err;
   }
   finally
