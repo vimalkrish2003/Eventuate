@@ -13,6 +13,7 @@ const tokengenerator = require('token-generator')({
 const multer= require('multer');
 const path = require('path');
 const fs = require('fs').promises;
+const moment = require('moment');
 
 //multer setup
 const storage = multer.diskStorage({
@@ -204,8 +205,73 @@ router.get('/logout', function (req, res) {
 router.get('/upload',function(req,res){
   res.render('users/sampleimage.hbs')
 });
+router.get('/bookinghistory', async function (req, res) {
+  const user = req.session.user;
 
+  if (!req.session.user) {
+    // If the user is not logged in, redirect to the login page
+    return res.redirect('/login');
+  } else {
+    try {
+      // Fetch user details
+      const [userData] = await db.execute('SELECT * FROM USERDETAILS WHERE email = ?', [user.email]);
 
+      // Fetch all bookings for the user with inner join to get company details
+      const [allBookings] = await db.execute(`
+        SELECT BOOKINGS.*, COMPANY.*
+        FROM BOOKINGS
+        INNER JOIN COMPANY ON BOOKINGS.compregno = COMPANY.compregno
+        WHERE BOOKINGS.email = ?
+      `, [user.email]);
+
+      if (userData.length === 0 || allBookings.length === 0) {
+        // Handle the case where no data is found
+        return res.status(404).json({ error: 'Data not found' });
+      }
+
+      // Process the bookings data
+      const processedBookings = allBookings.map((booking) => {
+        const bookingStatusText = getBookingStatusText(booking.bookingstatus);
+        const bookingStatusImage = getBookingStatusImage(booking.bookingstatus);
+
+        const formattedStartDate = moment(booking.startdate).format('YYYY-MM-DD');
+    const formattedEndDate = moment(booking.enddate).format('YYYY-MM-DD');
+        return { ...booking, bookingStatusText, bookingStatusImage, formattedStartDate,
+          formattedEndDate };
+      });
+
+      res.render('users/bookinghistory', { bookings: processedBookings, user: userData[0] });
+
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+});
+
+// Helper function to get booking status text
+function getBookingStatusText(status) {
+  switch (status) {
+    case 1:
+      return 'Booking Approved';
+    case -1:
+      return 'Booking Rejected';
+    default:
+      return 'Booking Pending';
+  }
+}
+
+// Helper function to get booking status image URL
+function getBookingStatusImage(status) {
+  switch (status) {
+    case 1:
+      return '/css/login/check.png';
+    case -1:
+      return '/css/login/cancel.png';
+    default:
+      return '/css/login/clock.png';
+  }
+}
 
 
 
@@ -504,10 +570,28 @@ router.post('/bookingform',async function(req,res){
       const endingtime=req.body.endingtime;
       const address=req.body.address;
       const compregno=req.body.compregno;
+      
+
+      if (!fname|| !lname || !category|| !startingdate || !endingdate || !startingtime|| !endingtime || !address || !compregno ) {
+
+      
+        // Render the booking page with an error message
+        const [userData] = await db.execute('SELECT * FROM USERDETAILS WHERE email = ?', [user.email]);
+      
+    // Fetch company details
+    const [companyData] = await db.execute('SELECT * FROM COMPANY WHERE compregno = ?', [compregno]);
+
+    if (userData.length === 0 || companyData.length === 0) {
+      // Handle the case where no data is found
+      return res.status(404).json({ error: 'Data not found' });
+    }
+        const errorMessage = 'Please fill in all fields!!';
+        return res.render('users/booking', { errorMessage,user: userData[0], company: companyData[0] });
+      }else{
 
       await db.execute('INSERT INTO BOOKINGS(compregno, email, bookingcategory, startdate, enddate, starttime, endtime, firstname, lastname, bookingaddress) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
       [compregno, user.email, category, startingdate, endingdate, startingtime, endingtime, fname, lname, address]);
-    
+    console.log('fuck')
       const [bookingData] = await db.execute('SELECT * FROM BOOKINGS WHERE email = ?', [user.email]);
     
       // Fetch user details
@@ -539,7 +623,7 @@ router.post('/bookingform',async function(req,res){
       booking: formattedBookingData,
     });
     
-
+  }
     } catch (error) {
     console.error('Error fetching booking data:', error);
     res.status(500).json({ error: 'Server error' });

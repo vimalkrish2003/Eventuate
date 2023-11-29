@@ -104,6 +104,15 @@ nav {
 
 }
 
+.event-cart-button {
+  width: 45px;
+  height: 45px;
+  border-radius: 25px;
+  background-color: transparent;
+  
+  
+}
+
 .event-cart:hover{
   opacity: 0.6;
 

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/login/bookingHistory.css">
+  <title>Home</title>
+</head>
+<body>
+
+   <!-- Navigation Bar-->
+   <nav>
+    <div class="left-header">
+
+      <div>
+       <a href="../intro.html"><img class="logo" src="/css/login/eventuate-logo.png" alt=""></a> 
+      </div>
+
+    </div>
+
+    
+
+    </div>
+
+    <div class="right-header">
+
+
+      
+
+      <div class="account-info">
+
+        <p class="account-name">{{user.name}}</p>
+
+      </div>
+
+      <div>
+        <img class="account-img" src="/css/login/account.png" alt="">
+      </div>
+
+    </div>
+
+  </nav>
+
+
+  <!--History-->
+
+  <div class="history-box">
+
+{{#each bookings}}
+  <div class="history-card">
+    <div style="width: 430px; font-size: 20px; font-family: 'Times New Roman', Times, serif; font-weight: bold; color: rgba(255, 255, 255, 0.578);">
+      <p style="font-size: 25px; margin-bottom: 40px;">{{compname}}</p>
+      <p>Booking ID: {{bookingid}}</p>
+    </div>
+
+    <div>
+      <div>
+        <div class="date-display">
+          <div>{{formattedStartDate}} - {{formattedEndDate}}</div>
+        </div>
+        <div class="time-display">
+          <div>{{starttime}}-{{endtime}}</div>
+        </div>
+      </div>
+
+      {{#if bookingStatusText}}
+        <div class="booking-status">
+          <div><img width="40px" src="{{bookingStatusImage}}" alt=""></div>
+          <div><p>{{bookingStatusText}}</p></div>
+        </div>
+      {{/if}}
+
+    </div>
+  </div>
+{{/each}}
+
+
+  <script type="module" src="/css/login/home.js"></script>
+  
+</body>
+</html>
