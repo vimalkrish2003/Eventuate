@@ -15,6 +15,8 @@ const path = require('path');
 const fs = require('fs').promises;
 const moment = require('moment');
 const fsa = require('fs');
+const mime = require('mime-types');
+
 
 
 
@@ -81,25 +83,29 @@ router.get('/home', noCacheMiddleware, async function (req, res) {
       // User doesn't exist in the database, redirect to login
       return res.redirect('/login');
     }
+    
+// Fetch data from the COMPANY table
+const [companyData] = await db.execute('SELECT * FROM COMPANY');
+let companiesWithImages = [];
 
-      // Fetch data from the COMPANY table
-      const [companyData] = await db.execute('SELECT * FROM COMPANY');
-      const imagePath=companyData[0].compimage;
-      let base64Image=null;
-      if (imagePath != null) {
-        try {
-          const imageFile=fsa.readFileSync(imagePath);
-      const fileType = await import('file-type');
-      const mime = await fileType.fileTypeFromBuffer(imageFile);
-      base64Image = `data:${mime.mime};base64,` + Buffer.from(imageFile).toString('base64');
-        } catch (error) {
-          console.error('Error reading or processing image:', error);
-        }
-      }
-      
-     
-      res.render('users/home', { user, company: companyData.map(company => ({ ...company, image: base64Image || company.compimage })) });
+for (const company of companyData) {
+  const imagePath = company.compimage;
+  let base64Image = null;
 
+  if (imagePath != null) {
+    try {
+      const imageFile = fsa.readFileSync(imagePath);
+      const mimeType = mime.lookup(imagePath);
+      base64Image = `data:${mimeType};base64,` + Buffer.from(imageFile).toString('base64');
+    } catch (error) {
+      console.error('Error reading or processing image:', error);
+    }
+  }
+
+  companiesWithImages.push({ ...company, image: base64Image });
+}
+
+res.render('users/home', { user, company: companiesWithImages });
 
   } catch (error) {
     console.error('Error checking user existence:', error);
