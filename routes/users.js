@@ -14,6 +14,10 @@ const multer= require('multer');
 const path = require('path');
 const fs = require('fs').promises;
 const moment = require('moment');
+const fsa = require('fs');
+
+
+
 
 //multer setup
 const storage = multer.diskStorage({
@@ -80,10 +84,22 @@ router.get('/home', noCacheMiddleware, async function (req, res) {
 
       // Fetch data from the COMPANY table
       const [companyData] = await db.execute('SELECT * FROM COMPANY');
-     
+      const imagePath=companyData[0].compimage;
+      let base64Image=null;
+      if (imagePath != null) {
+        try {
+          const imageFile=fsa.readFileSync(imagePath);
+      const fileType = await import('file-type');
+      const mime = await fileType.fileTypeFromBuffer(imageFile);
+      base64Image = `data:${mime.mime};base64,` + Buffer.from(imageFile).toString('base64');
+        } catch (error) {
+          console.error('Error reading or processing image:', error);
+        }
+      }
       
+     
+      res.render('users/home', { user, company: companyData.map(company => ({ ...company, image: base64Image || company.compimage })) });
 
-    res.render('users/home', { user, company: companyData });
 
   } catch (error) {
     console.error('Error checking user existence:', error);
@@ -546,8 +562,22 @@ router.post('/booking', async function (req, res) {
       return res.status(404).json({ error: 'Data not found' });
     }
 
+    const imagePath=companyData[0].compimage;
+      let base64Image=null;
+      if (imagePath != null) {
+        try {
+          const imageFile=fsa.readFileSync(imagePath);
+      const fileType = await import('file-type');
+      const mime = await fileType.fileTypeFromBuffer(imageFile);
+      base64Image = `data:${mime.mime};base64,` + Buffer.from(imageFile).toString('base64');
+        } catch (error) {
+          console.error('Error reading or processing image:', error);
+        }
+      }
+      
+
     // Pass the retrieved data to the booking view
-    res.render('users/booking', { user: userData[0], company: companyData[0] });
+    res.render('users/booking', { user: userData[0], company: companyData[0],image:base64Image });
 
   } catch (error) {
     console.error('Error fetching booking page:', error);
