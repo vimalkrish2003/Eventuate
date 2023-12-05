@@ -74,7 +74,9 @@ router.get('/',checkAuthenticated, async (req, res, next)=>{
     if(imagePath!=null)
     {
       const imageFile=fs.readFileSync(imagePath);
-      base64Image=Buffer.from(imageFile).toString('base64');
+      const fileType = await import('file-type');
+      const mime = await fileType.fileTypeFromBuffer(imageFile);
+      base64Image = `data:${mime.mime};base64,` + Buffer.from(imageFile).toString('base64');
     }
     res.render('admin/AdminHomepage.hbs',{user:rows[0],image:base64Image});
   }
