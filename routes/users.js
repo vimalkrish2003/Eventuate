@@ -627,7 +627,7 @@ router.post('/bookingform',async function(req,res){
 
       await db.execute('INSERT INTO BOOKINGS(compregno, email, bookingcategory, startdate, enddate, starttime, endtime, firstname, lastname, bookingaddress) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
       [compregno, user.email, category, startingdate, endingdate, startingtime, endingtime, fname, lname, address]);
-    console.log('fuck')
+    
       const [bookingData] = await db.execute('SELECT * FROM BOOKINGS WHERE email = ?', [user.email]);
     
       // Fetch user details
@@ -817,11 +817,11 @@ module.exports = router;
 // Function to confirm email during signup
 async function confirmationEmail(email, token) {
   const transporter = await nodemailer.createTransport({
-    host: 'smtp.elasticemail.com',
-    port: 2525,
+    host: 'smtp.gmail.com',
+    port: 587,
     auth: {
       user: 'eventuate80@gmail.com',
-      pass: 'AEF77F1296E2077DD72336D86CF749D17BB6',
+      pass: 'vpkf udcs rdpr zzvj',
     },
   });
 
