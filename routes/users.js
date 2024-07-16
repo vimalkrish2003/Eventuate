@@ -844,11 +844,11 @@ async function confirmationEmail(email, token) {
 
 async function sendPasswordResetEmail(email, token) {
   const transporter = await nodemailer.createTransport({
-    host: 'smtp.elasticemail.com',
-    port: 2525,
+    host: 'smtp.gmail.com',
+    port: 587,
     auth: {
       user: 'eventuate80@gmail.com',
-      pass: 'AEF77F1296E2077DD72336D86CF749D17BB6',
+      pass: 'vpkf udcs rdpr zzvj',
     },
   });
 
